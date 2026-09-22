@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pieza50 | Neuroscience Consulting for Better Decisions</title>
+  <meta name="description" content="We use neuroscience and behavioral evidence to help teams build products, experiences, and strategies around how people actually think, feel, and decide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+
+</head>
+<body>
+
+  <!-- ====== NAVIGATION ====== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="/" class="nav-logo">
+        <svg class="nav-sparkle" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+          <path d="M11 0L12.8 9.2L22 11L12.8 12.8L11 22L9.2 12.8L0 11L9.2 9.2L11 0Z" fill="#1C3A2E"/>
+        </svg>
+        <div class="nav-brand-text">
+          <span class="nav-brand-name">PIEZA50</span>
+          <span class="nav-brand-sub">Neuroscience Consulting<br>For Better Decisions</span>
+        </div>
+      </a>
+
+      <!-- Nav Items -->
+      <ul class="nav-items" id="nav-items">
+
+        <li class="nav-item has-dropdown" id="dd-consulting">
+          <button class="nav-link" aria-expanded="false">
+            Consulting
+            <svg class="chevron" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          </button>
+          <div class="dropdown" role="menu">
+            <a href="#" class="dropdown-item" role="menuitem">Product Design</a>
+            <a href="#" class="dropdown-item" role="menuitem">Estrategia e Innovación</a>
+            <a href="#" class="dropdown-item" role="menuitem">Marketing &amp; Growth</a>
+            <a href="#" class="dropdown-item" role="menuitem">Compromiso Laboral</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" id="dd-comunidad">
+          <button class="nav-link" aria-expanded="false">
+            Comunidad
+            <svg class="chevron" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          </button>
+          <div class="dropdown" role="menu">
+            <a href="#" class="dropdown-item" role="menuitem">Recursos</a>
+            <a href="#" class="dropdown-item" role="menuitem">Únete</a>
+            <a href="#" class="dropdown-item" role="menuitem">Newsletter</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#method" class="nav-link">Nuestro Método</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#about" class="nav-link">About</a>
+        </li>
+
+      </ul>
+
+      <!-- CTA -->
+      <a href="#contact" class="nav-cta">
+        CONTACT US <span aria-hidden="true">→</span>
+      </a>
+
+      <!-- Mobile Burger -->
+      <button class="nav-burger" id="nav-burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="hero">
+
+    <!-- Left: text -->
+    <div class="hero-text">
+      <h1 class="hero-title">
+        Science that<br>
+        moves
+        <span class="word-wrap">
+          <span class="cycling-word" id="cyclingWord">people</span>
+        </span><span class="title-period">.</span>
+      </h1>
+      <div class="title-underline" aria-hidden="true"></div>
+      <p class="hero-body">
+        We use neuroscience and behavioral evidence to help teams build products,
+        experiences, and strategies around how people actually think, feel, and decide.
+      </p>
+      <a href="#work" class="hero-cta-link">
+        EXPLORE OUR WORK <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Center: 3‑D Brain -->
+    <div class="brain-container" id="brainContainer">
+      <canvas id="brain-canvas"></canvas>
+    </div>
+
+    <!-- Right: sidebar labels -->
+    <aside class="hero-sidebar" aria-label="Key outcomes">
+      <div class="sidebar-item">UNDERSTAND<br>PEOPLE</div>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <div class="sidebar-item">IMPROVE<br>EXPERIENCES</div>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <div class="sidebar-item">DRIVE BETTER<br>DECISIONS</div>
+    </aside>
+
+  </section>
+
+
+  <!-- ====== OUR METHOD ====== -->
+  <section class="method" id="method">
+    <div class="method-inner">
+
+      <p class="method-label">OUR METHOD</p>
+
+      <div class="method-three-col">
+
+        <!-- Col 1: Title -->
+        <div class="method-col-title">
+          <h2 class="method-title">Neuroscience,<br><em>Applied.</em></h2>
+        </div>
+
+        <!-- Col 2: Description -->
+        <div class="method-col-desc">
+          <p>We translate neuroscience into practical insights that help teams understand how people think, feel, decide, and behave — and turn those insights into better products, experiences, and strategies.</p>
+          <a href="#" class="explore-link">EXPLORE OUR APPROACH <span aria-hidden="true">→</span></a>
+        </div>
+
+        <!-- Col 3: Steps -->
+        <div class="method-col-steps">
+          <div class="method-steps-row">
+
+            <div class="method-step">
+              <div class="step-circle step-sage">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                  <circle cx="18" cy="14" r="8" stroke="#1C3A2E" stroke-width="1.4"/>
+                  <path d="M12 14c0-3.3 2.7-6 6-6" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M14 22v4M22 22v4" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M10 22h16" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="step-label">THINK</span>
+              <span class="step-desc">How people process information.</span>
+            </div>
+
+            <div class="step-arrow" aria-hidden="true">→</div>
+
+            <div class="method-step">
+              <div class="step-circle step-yellow">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                  <path d="M18 26s-9-5.5-9-12a6 6 0 0112 0 6 6 0 0112 0c0 6.5-9 12-9 12z" stroke="#1C3A2E" stroke-width="1.4" stroke-linejoin="round"/>
+                  <circle cx="18" cy="17" r="2.5" stroke="#1C3A2E" stroke-width="1.2"/>
+                </svg>
+              </div>
+              <span class="step-label">FEEL</span>
+              <span class="step-desc">How emotion shapes experience.</span>
+            </div>
+
+            <div class="step-arrow" aria-hidden="true">→</div>
+
+            <div class="method-step">
+              <div class="step-circle step-dark">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                  <circle cx="18" cy="18" r="10" stroke="#F5F0E8" stroke-width="1.4"/>
+                  <circle cx="18" cy="18" r="6"  stroke="#F5F0E8" stroke-width="1.2"/>
+                  <circle cx="18" cy="18" r="2"  fill="#F5F0E8"/>
+                </svg>
+              </div>
+              <span class="step-label">ACT</span>
+              <span class="step-desc">What drives decisions and behavior.</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <p class="method-footer-text">WE TURN THESE INSIGHTS INTO ACTION.</p>
+
+    </div>
+  </section>
+
+
+  <!-- ====== ABOUT (stub) ====== -->
+  <section class="about-stub" id="about">
+    <div class="about-stub-inner">
+      <p class="method-label">ABOUT PIEZA50</p>
+      <h2 class="method-title">Where science<br><em>meets strategy.</em></h2>
+      <p class="hero-body" style="max-width:540px;margin:0 auto;">
+        Pieza50 is a neuroscience consulting firm that bridges the gap between
+        human behavior research and real-world business decisions. We partner with
+        teams who want to build with the brain in mind.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- Scripts -->
+  <script src="js/main.js" defer></script>
+  <script src="js/brain.js" defer></script>
+
+</body>
+</html>
