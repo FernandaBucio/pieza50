@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pieza50 | Neuroscience Consulting for Better Decisions</title>
+  <meta name="description" content="We use neuroscience and behavioral evidence to help teams build products, experiences, and strategies around how people actually think, feel, and decide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+/* ============================================================
+   PIEZA50 — Landing Page Styles
+   ============================================================ */
+
+/* ---------- Variables ---------- */
+:root {
+  --dark:     #1C3A2E;
+  --dark2:    #2D4A3E;
+  --gold:     #C4A840;
+  --gold-lt:  #E8D89A;
+  --sage:     #8FAF8C;
+  --sage-lt:  #D4E6D2;
+  --cream:    #F5F0E8;
+  --white:    #FFFFFF;
+  --muted:    rgba(28, 58, 46, 0.55);
+  --border:   rgba(28, 58, 46, 0.12);
+
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-sans:  'Inter', system-ui, sans-serif;
+
+  --nav-h: 80px;
+  --max-w: 1380px;
+  --px:    clamp(24px, 5vw, 64px);
+}
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: var(--font-sans);
+  background: var(--white);
+  color: var(--dark2);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { background: none; border: none; cursor: pointer; font: inherit; color: inherit; }
+ul { list-style: none; }
+img, svg { display: block; }
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: var(--nav-h);
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow 0.3s ease;
+}
+.nav.scrolled { box-shadow: 0 2px 24px rgba(28,58,46,0.07); }
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--px);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+/* Logo */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.nav-sparkle { flex-shrink: 0; }
+.nav-brand-text { display: flex; flex-direction: column; gap: 1px; }
+.nav-brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--dark);
+  line-height: 1;
+}
+.nav-brand-sub {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Nav items */
+.nav-items {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.nav-item { position: relative; }
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dark2);
+  opacity: 0.75;
+  transition: opacity 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+.nav-link:hover { opacity: 1; }
+
+.chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.has-dropdown:hover .chevron,
+.has-dropdown.open .chevron { transform: rotate(180deg); opacity: 1; }
+
+/* Dropdown */
+.dropdown {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 8px 32px rgba(28,58,46,0.10);
+  min-width: 210px;
+  padding: 8px 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 200;
+}
+.has-dropdown:hover .dropdown,
+.has-dropdown.open .dropdown {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateY(0);
+}
+
+.dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--dark2);
+  opacity: 0.7;
+  transition: opacity 0.15s, background 0.15s;
+}
+.dropdown-item:hover { opacity: 1; background: rgba(28,58,46,0.04); }
+
+/* CTA button */
+.nav-cta {
+  flex-shrink: 0;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+  white-space: nowrap;
+}
+.nav-cta:hover { background: #D4B850; transform: translateY(-1px); }
+
+/* Mobile burger (hidden on desktop) */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  margin-left: auto;
+}
+.nav-burger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--dark);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: grid;
+  grid-template-columns: 1fr 1fr 140px;
+  gap: 0;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding-left: var(--px);
+  padding-right: var(--px);
+  align-items: center;
+  position: relative;
+}
+
+/* Hero text (left column) */
+.hero-text {
+  padding-right: 40px;
+  padding-top: 24px;
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.08;
+  color: var(--dark);
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+/* Word cycling */
+.word-wrap {
+  position: relative;
+  display: inline-block;
+}
+.cycling-word {
+  font-style: italic;
+  display: inline-block;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.cycling-word.exit {
+  opacity: 0;
+  transform: translateY(-14px);
+}
+.cycling-word.enter {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.title-period { font-family: var(--font-serif); font-weight: 300; }
+
+/* Gold underline below title */
+.title-underline {
+  width: 180px;
+  height: 2px;
+  background: var(--gold);
+  margin-bottom: 32px;
+  border-radius: 1px;
+}
+
+.hero-body {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--dark2);
+  opacity: 0.75;
+  max-width: 400px;
+  margin-bottom: 40px;
+}
+
+.hero-cta-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dark);
+  border-bottom: 1.5px solid var(--dark);
+  padding-bottom: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.hero-cta-link:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Brain canvas container (center column) */
+.brain-container {
+  width: 100%;
+  height: min(620px, 80vh);
+  position: relative;
+}
+#brain-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
+
+/* Hero sidebar (right column) */
+.hero-sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0;
+  padding-left: 16px;
+  text-align: right;
+}
+.sidebar-item {
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dark2);
+  opacity: 0.55;
+  line-height: 1.6;
+  padding: 10px 0;
+}
+.sidebar-divider {
+  width: 1px;
+  height: 36px;
+  background: var(--border);
+  margin-left: auto;
+}
+
+/* ============================================================
+   OUR METHOD
+   ============================================================ */
+.method {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  padding: 100px var(--px);
+}
+.method-inner { max-width: var(--max-w); margin: 0 auto; }
+
+.method-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 36px;
+}
+
+/* 3-column layout matching the reference */
+.method-three-col {
+  display: grid;
+  grid-template-columns: 300px 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+  margin-bottom: 56px;
+}
+
+.method-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.12;
+  color: var(--dark);
+}
+.method-title em { font-style: italic; font-weight: 300; }
+
+.method-col-desc p {
+  font-size: 0.94rem;
+  line-height: 1.78;
+  color: var(--dark2);
+  opacity: 0.72;
+  margin-bottom: 28px;
+}
+
+.explore-link {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dark);
+  border-bottom: 1.5px solid var(--dark);
+  padding-bottom: 3px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.explore-link:hover { color: var(--gold); border-color: var(--gold); }
+
+/* Steps row inside col 3 */
+.method-steps-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+.method-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  flex: 1;
+  min-width: 80px;
+}
+
+.step-circle {
+  width: 86px;
+  height: 86px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.step-sage   { background: var(--sage-lt); }
+.step-yellow { background: #F5EDD5; }
+.step-dark   { background: var(--dark); }
+
+.step-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dark);
+}
+.step-desc {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--dark2);
+  opacity: 0.65;
+}
+
+.step-arrow {
+  font-size: 1rem;
+  color: var(--dark2);
+  opacity: 0.35;
+  flex-shrink: 0;
+  align-self: center;
+  padding-bottom: 48px;
+}
+
+.method-footer-text {
+  text-align: center;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dark2);
+  opacity: 0.4;
+  border-top: 1px solid var(--border);
+  padding-top: 32px;
+}
+
+/* ============================================================
+   ABOUT STUB
+   ============================================================ */
+.about-stub {
+  background: var(--white);
+  padding: 100px var(--px);
+  text-align: center;
+}
+.about-stub-inner { max-width: 700px; margin: 0 auto; }
+.about-stub .method-label { margin-bottom: 24px; }
+.about-stub .method-title { white-space: normal; margin-bottom: 28px; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .hero { grid-template-columns: 1fr 1fr; }
+  .hero-sidebar { display: none; }
+  .brain-container { height: min(520px, 70vw); }
+}
+
+@media (max-width: 768px) {
+  :root { --px: 20px; }
+
+  /* Nav mobile */
+  .nav-items { display: none; flex-direction: column; align-items: stretch; }
+  .nav-items.open { display: flex; position: absolute; top: var(--nav-h); left: 0; right: 0; background: var(--white); border-bottom: 1px solid var(--border); padding: 12px 0; z-index: 200; }
+  .nav-cta { display: none; }
+  .nav-burger { display: flex; }
+  .nav-inner { gap: 0; }
+
+  /* Hero mobile: stack vertically */
+  .hero {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    min-height: auto;
+    padding-top: calc(var(--nav-h) + 40px);
+    padding-bottom: 40px;
+    gap: 32px;
+  }
+  .hero-text { padding-right: 0; }
+  .hero-title { font-size: 2.4rem; }
+  .brain-container { height: 60vw; min-height: 280px; }
+
+  /* Method */
+  .method-three-col { grid-template-columns: 1fr; gap: 32px; }
+  .method-steps-row { flex-wrap: wrap; justify-content: center; }
+  .step-arrow { transform: rotate(90deg); padding-bottom: 0; padding-right: 48px; }
+}
+
+</style>
+
+</head>
+<body>
+
+  <!-- ====== NAVIGATION ====== -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+
+      <!-- Logo -->
+      <a href="/" class="nav-logo">
+        <svg class="nav-sparkle" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true">
+          <path d="M11 0L12.8 9.2L22 11L12.8 12.8L11 22L9.2 12.8L0 11L9.2 9.2L11 0Z" fill="#1C3A2E"/>
+        </svg>
+        <div class="nav-brand-text">
+          <span class="nav-brand-name">PIEZA50</span>
+          <span class="nav-brand-sub">Neuroscience Consulting<br>For Better Decisions</span>
+        </div>
+      </a>
+
+      <!-- Nav Items -->
+      <ul class="nav-items" id="nav-items">
+
+        <li class="nav-item has-dropdown" id="dd-consulting">
+          <button class="nav-link" aria-expanded="false">
+            Consulting
+            <svg class="chevron" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          </button>
+          <div class="dropdown" role="menu">
+            <a href="#" class="dropdown-item" role="menuitem">Product Design</a>
+            <a href="#" class="dropdown-item" role="menuitem">Estrategia e Innovación</a>
+            <a href="#" class="dropdown-item" role="menuitem">Marketing &amp; Growth</a>
+            <a href="#" class="dropdown-item" role="menuitem">Compromiso Laboral</a>
+          </div>
+        </li>
+
+        <li class="nav-item has-dropdown" id="dd-comunidad">
+          <button class="nav-link" aria-expanded="false">
+            Comunidad
+            <svg class="chevron" width="10" height="6" viewBox="0 0 10 6"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/></svg>
+          </button>
+          <div class="dropdown" role="menu">
+            <a href="#" class="dropdown-item" role="menuitem">Recursos</a>
+            <a href="#" class="dropdown-item" role="menuitem">Únete</a>
+            <a href="#" class="dropdown-item" role="menuitem">Newsletter</a>
+          </div>
+        </li>
+
+        <li class="nav-item">
+          <a href="#method" class="nav-link">Nuestro Método</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#about" class="nav-link">About</a>
+        </li>
+
+      </ul>
+
+      <!-- CTA -->
+      <a href="#contact" class="nav-cta">
+        CONTACT US <span aria-hidden="true">→</span>
+      </a>
+
+      <!-- Mobile Burger -->
+      <button class="nav-burger" id="nav-burger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+
+    </div>
+  </nav>
+
+
+  <!-- ====== HERO ====== -->
+  <section class="hero" id="hero">
+
+    <!-- Left: text -->
+    <div class="hero-text">
+      <h1 class="hero-title">
+        Science that<br>
+        moves
+        <span class="word-wrap">
+          <span class="cycling-word" id="cyclingWord">people</span>
+        </span><span class="title-period">.</span>
+      </h1>
+      <div class="title-underline" aria-hidden="true"></div>
+      <p class="hero-body">
+        We use neuroscience and behavioral evidence to help teams build products,
+        experiences, and strategies around how people actually think, feel, and decide.
+      </p>
+      <a href="#work" class="hero-cta-link">
+        EXPLORE OUR WORK <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Center: 3‑D Brain -->
+    <div class="brain-container" id="brainContainer">
+      <canvas id="brain-canvas"></canvas>
+    </div>
+
+    <!-- Right: sidebar labels -->
+    <aside class="hero-sidebar" aria-label="Key outcomes">
+      <div class="sidebar-item">UNDERSTAND<br>PEOPLE</div>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <div class="sidebar-item">IMPROVE<br>EXPERIENCES</div>
+      <div class="sidebar-divider" aria-hidden="true"></div>
+      <div class="sidebar-item">DRIVE BETTER<br>DECISIONS</div>
+    </aside>
+
+  </section>
+
+
+  <!-- ====== OUR METHOD ====== -->
+  <section class="method" id="method">
+    <div class="method-inner">
+
+      <p class="method-label">OUR METHOD</p>
+
+      <div class="method-three-col">
+
+        <!-- Col 1: Title -->
+        <div class="method-col-title">
+          <h2 class="method-title">Neuroscience,<br><em>Applied.</em></h2>
+        </div>
+
+        <!-- Col 2: Description -->
+        <div class="method-col-desc">
+          <p>We translate neuroscience into practical insights that help teams understand how people think, feel, decide, and behave — and turn those insights into better products, experiences, and strategies.</p>
+          <a href="#" class="explore-link">EXPLORE OUR APPROACH <span aria-hidden="true">→</span></a>
+        </div>
+
+        <!-- Col 3: Steps -->
+        <div class="method-col-steps">
+          <div class="method-steps-row">
+
+            <div class="method-step">
+              <div class="step-circle step-sage">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                  <circle cx="18" cy="14" r="8" stroke="#1C3A2E" stroke-width="1.4"/>
+                  <path d="M12 14c0-3.3 2.7-6 6-6" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M14 22v4M22 22v4" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
+                  <path d="M10 22h16" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <span class="step-label">THINK</span>
+              <span class="step-desc">How people process information.</span>
+            </div>
+
+            <div class="step-arrow" aria-hidden="true">→</div>
+
+            <div class="method-step">
+              <div class="step-circle step-yellow">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                  <path d="M18 26s-9-5.5-9-12a6 6 0 0112 0 6 6 0 0112 0c0 6.5-9 12-9 12z" stroke="#1C3A2E" stroke-width="1.4" stroke-linejoin="round"/>
+                  <circle cx="18" cy="17" r="2.5" stroke="#1C3A2E" stroke-width="1.2"/>
+                </svg>
+              </div>
+              <span class="step-label">FEEL</span>
+              <span class="step-desc">How emotion shapes experience.</span>
+            </div>
+
+            <div class="step-arrow" aria-hidden="true">→</div>
+
+            <div class="method-step">
+              <div class="step-circle step-dark">
+                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+                  <circle cx="18" cy="18" r="10" stroke="#F5F0E8" stroke-width="1.4"/>
+                  <circle cx="18" cy="18" r="6"  stroke="#F5F0E8" stroke-width="1.2"/>
+                  <circle cx="18" cy="18" r="2"  fill="#F5F0E8"/>
+                </svg>
+              </div>
+              <span class="step-label">ACT</span>
+              <span class="step-desc">What drives decisions and behavior.</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <p class="method-footer-text">WE TURN THESE INSIGHTS INTO ACTION.</p>
+
+    </div>
+  </section>
+
+
+  <!-- ====== ABOUT (stub) ====== -->
+  <section class="about-stub" id="about">
+    <div class="about-stub-inner">
+      <p class="method-label">ABOUT PIEZA50</p>
+      <h2 class="method-title">Where science<br><em>meets strategy.</em></h2>
+      <p class="hero-body" style="max-width:540px;margin:0 auto;">
+        Pieza50 is a neuroscience consulting firm that bridges the gap between
+        human behavior research and real-world business decisions. We partner with
+        teams who want to build with the brain in mind.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- Scripts -->
+<script>
+/**
+ * Pieza50 — main.js
+ * Handles: nav scrolled state, dropdown menus, mobile burger, word cycler
+ */
+
+(function () {
+  'use strict';
+
+  // ── Nav: add shadow on scroll ─────────────────────────────────────────
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', function () {
+    nav.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  // ── Dropdown menus (hover + keyboard) ─────────────────────────────────
+  document.querySelectorAll('.has-dropdown').forEach(function (item) {
+    const btn = item.querySelector('.nav-link');
+
+    // Toggle on click (for keyboard / touch users)
+    btn && btn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      const isOpen = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      // Close siblings
+      document.querySelectorAll('.has-dropdown.open').forEach(function (other) {
+        if (other !== item) {
+          other.classList.remove('open');
+          const ob = other.querySelector('.nav-link');
+          ob && ob.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  });
+
+  // Close dropdowns when clicking outside
+  document.addEventListener('click', function () {
+    document.querySelectorAll('.has-dropdown.open').forEach(function (item) {
+      item.classList.remove('open');
+      const btn = item.querySelector('.nav-link');
+      btn && btn.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // ── Mobile burger ──────────────────────────────────────────────────────
+  const burger   = document.getElementById('nav-burger');
+  const navItems = document.getElementById('nav-items');
+
+  burger && burger.addEventListener('click', function () {
+    const isOpen = navItems.classList.toggle('open');
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    // Animate burger spans
+    const spans = burger.querySelectorAll('span');
+    if (isOpen) {
+      spans[0].style.transform = 'translateY(7px) rotate(45deg)';
+      spans[1].style.opacity   = '0';
+      spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity   = '';
+      spans[2].style.transform = '';
+    }
+  });
+
+  // ── Word cycler ────────────────────────────────────────────────────────
+  const cyclingEl = document.getElementById('cyclingWord');
+  if (cyclingEl) {
+    const words    = ['people', 'decisions', 'business', 'products'];
+    let   index    = 0;
+    const INTERVAL = 2600;   // ms between transitions
+    const FADE_MS  = 380;    // ms for each fade leg
+
+    function nextWord() {
+      // Exit animation
+      cyclingEl.classList.add('exit');
+
+      setTimeout(function () {
+        index = (index + 1) % words.length;
+        cyclingEl.textContent = words[index];
+        cyclingEl.classList.remove('exit');
+        cyclingEl.classList.add('enter');
+
+        // Force reflow so the enter class triggers
+        void cyclingEl.offsetWidth;
+        cyclingEl.classList.remove('enter');
+      }, FADE_MS);
+    }
+
+    setInterval(nextWord, INTERVAL);
+  }
+
+})();
+
+</script>
+<script>
+/**
+ * Pieza50 — brain.js
+ * Pure Canvas 2D custom 3-D brain renderer (zero dependencies).
+ * Scroll drives Y rotation; idle adds a gentle drift.
+ */
+(function () {
+  'use strict';
+
+  const canvas    = document.getElementById('brain-canvas');
+  const container = document.getElementById('brainContainer');
+  if (!canvas || !container) return;
+
+  const ctx = canvas.getContext('2d');
+
+  // ── Config ────────────────────────────────────────────────────────────
+  const LAT         = 22;   // latitude strips
+  const LON         = 36;   // longitude strips
+  const NODE_TARGET = 130;  // neural nodes
+  const MAX_CONN    = 115;  // neural connections
+  const CONN_DIST   = 0.56; // max distance (normalised) for connections
+  const FOV         = 4.8;  // perspective field of view
+
+  // ── Colours ───────────────────────────────────────────────────────────
+  const C_WIRE   = 'rgba(45,74,62,';     // dark green (closed with opacity)
+  const C_GOLD   = '#C4A840';
+  const C_GREEN  = '#2D4A3E';
+  const C_SAGE   = '#8FAF8C';
+  const C_YELLOW = '#D4A843';
+
+  // ── Brain surface radius (multi-octave folds + hemisphere groove) ─────
+  function brainR(phi, theta) {
+    const xn = Math.sin(phi) * Math.cos(theta);
+    const yn = Math.cos(phi);
+    const zn = Math.sin(phi) * Math.sin(theta);
+    const f1 = Math.sin(xn * 2.6  + yn * 1.5) * Math.cos(zn * 1.9) * 0.17;
+    const f2 = Math.cos(yn * 4.1  + zn * 2.3) * Math.sin(xn * 2.6) * 0.12;
+    const f3 = Math.sin(zn * 5.6  + xn * 3.3) * Math.cos(yn * 3.1) * 0.08;
+    const f4 = Math.cos(xn * 7.6  + yn * 4.9) * Math.sin(zn * 6.6) * 0.05;
+    const f5 = Math.sin(yn * 9.6  + zn * 7.3) * 0.026;
+    const groove = Math.exp(-Math.pow(Math.cos(theta), 2) * 8) * 0.20;
+    return 1 + f1 + f2 + f3 + f4 + f5 - groove;
+  }
+
+  // ── Geometry: sphere grid → vertices + edges ──────────────────────────
+  function buildGeometry() {
+    const verts = [];  // {ox,oy,oz, px,py,depth}
+    const edges = [];  // [i,j] pairs
+    const grid  = [];  // 2-D index table [lat][lon]
+
+    for (let la = 0; la <= LAT; la++) {
+      const phi = (la / LAT) * Math.PI;
+      const row = [];
+
+      for (let lo = 0; lo < LON; lo++) {
+        const theta = (lo / LON) * Math.PI * 2;
+        const r     = brainR(phi, theta);
+        const idx   = verts.length;
+        verts.push({
+          ox: r * Math.sin(phi) * Math.cos(theta) * 1.22,
+          oy: r * Math.cos(phi) * 0.88,
+          oz: r * Math.sin(phi) * Math.sin(theta),
+          px: 0, py: 0, depth: 0,
+        });
+        row.push(idx);
+        if (lo > 0) edges.push([idx - 1, idx]);
+      }
+      // Close latitude ring
+      if (row.length >= 2) edges.push([row[row.length - 1], row[0]]);
+
+      grid.push(row);
+
+      // Longitude (vertical) edges
+      if (la > 0) {
+        const prev = grid[la - 1];
+        for (let j = 0; j < LON; j++) edges.push([prev[j], row[j]]);
+      }
+    }
+    return { verts, edges };
+  }
+
+  // ── Sample neural nodes from brain surface ────────────────────────────
+  function buildNodes(verts) {
+    const step  = Math.max(1, Math.floor(verts.length / (NODE_TARGET * 1.4)));
+    const nodes = [];
+    let   idx   = 0;
+    for (let i = 0; i < verts.length && nodes.length < NODE_TARGET; i += step) {
+      const v = verts[i];
+      // Skip vertices very near the poles (they cluster connections badly)
+      const xzDist = Math.sqrt(v.ox * v.ox + v.oz * v.oz);
+      if (xzDist < 0.55) continue;
+      nodes.push({ ox: v.ox, oy: v.oy, oz: v.oz, px: 0, py: 0, depth: 0, isGold: (idx % 3 === 0) });
+      idx++;
+    }
+    return nodes;
+  }
+
+  // ── Find neural connections (nearby node pairs, max 4 per node) ──────
+  function buildConns(nodes) {
+    const conns    = [];
+    const perNode  = new Int32Array(nodes.length); // connection count per node
+    const MAX_NODE = 4;
+    outer:
+    for (let i = 0; i < nodes.length; i++) {
+      if (perNode[i] >= MAX_NODE) continue;
+      for (let j = i + 1; j < nodes.length; j++) {
+        if (conns.length >= MAX_CONN) break outer;
+        if (perNode[j] >= MAX_NODE) continue;
+        const dx = nodes[i].ox - nodes[j].ox;
+        const dy = nodes[i].oy - nodes[j].oy;
+        const dz = nodes[i].oz - nodes[j].oz;
+        if (Math.sqrt(dx*dx + dy*dy + dz*dz) < CONN_DIST) {
+          conns.push([i, j]);
+          perNode[i]++;
+          perNode[j]++;
+        }
+      }
+    }
+    return conns;
+  }
+
+  // ── Floating orbs ─────────────────────────────────────────────────────
+  function buildOrbs() {
+    return [
+      { ox: 1.82, oy:  0.42, oz:  0.10, r: 0.14, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox:-1.72, oy:  0.62, oz:  0.22, r: 0.18, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox: 1.62, oy: -0.92, oz: -0.14, r: 0.09, color: C_YELLOW, px:0, py:0, depth:0 },
+      { ox:-1.52, oy: -0.66, oz:  0.36, r: 0.12, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox: 0.92, oy:  1.58, oz:  0.46, r: 0.07, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox: 0.46, oy: -1.68, oz: -0.26, r: 0.06, color: C_YELLOW, px:0, py:0, depth:0 },
+      { ox:-0.96, oy:  1.38, oz: -0.46, r: 0.05, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox: 2.05, oy: -0.16, oz:  0.46, r: 0.06, color: C_YELLOW, px:0, py:0, depth:0 },
+      { ox:-1.32, oy: -1.22, oz: -0.36, r: 0.08, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox: 1.22, oy:  1.12, oz: -0.76, r: 0.05, color: C_SAGE,   px:0, py:0, depth:0 },
+      { ox:-0.32, oy:  1.82, oz:  0.32, r: 0.04, color: C_YELLOW, px:0, py:0, depth:0 },
+      { ox: 2.12, oy:  0.52, oz: -0.22, r: 0.08, color: C_SAGE,   px:0, py:0, depth:0 },
+    ];
+  }
+
+  // ── Transform a point (rotate + project) ─────────────────────────────
+  function xform(pt, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale) {
+    let x = pt.ox, y = pt.oy, z = pt.oz;
+
+    // Y-axis rotation
+    let t = x * cRY + z * sRY;
+    z = -x * sRY + z * cRY;
+    x = t;
+
+    // X-axis rotation
+    t = y * cRX - z * sRX;
+    z = y * sRX + z * cRX;
+    y = t;
+
+    // Z-axis rotation (gentle tilt)
+    t = x * cRZ - y * sRZ;
+    y = x * sRZ + y * cRZ;
+    x = t;
+
+    // Perspective projection (y-flip for screen space)
+    const inv = FOV / (FOV + z + 0.001);
+    pt.px    = cx + x * inv * scale;
+    pt.py    = cy - y * inv * scale;
+    pt.depth = z;
+  }
+
+  function transformAll(arr, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale) {
+    for (let i = 0; i < arr.length; i++) {
+      xform(arr[i], sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
+    }
+  }
+
+  // ── Render a frame ────────────────────────────────────────────────────
+  // Orb render order (allocated once, reused each frame)
+  let orbOrder;
+
+  function render(W, H, verts, edges, nodes, conns, orbs) {
+    ctx.clearRect(0, 0, W, H);
+
+    // 1 ── Wireframe edges
+    ctx.lineWidth = 0.55;
+    for (let k = 0; k < edges.length; k++) {
+      const a  = verts[edges[k][0]];
+      const b  = verts[edges[k][1]];
+      const dz = (a.depth + b.depth) * 0.5;
+      const al = (0.11 + dz * 0.025).toFixed(3);
+      ctx.strokeStyle = C_WIRE + Math.max(0.03, Math.min(0.20, +al)) + ')';
+      ctx.beginPath();
+      ctx.moveTo(a.px, a.py);
+      ctx.lineTo(b.px, b.py);
+      ctx.stroke();
+    }
+
+    // 2 ── Neural connections (gold)
+    ctx.strokeStyle = 'rgba(196,168,64,0.28)';
+    ctx.lineWidth   = 0.9;
+    for (let k = 0; k < conns.length; k++) {
+      const a = nodes[conns[k][0]];
+      const b = nodes[conns[k][1]];
+      ctx.beginPath();
+      ctx.moveTo(a.px, a.py);
+      ctx.lineTo(b.px, b.py);
+      ctx.stroke();
+    }
+
+    // 3 ── Floating orbs (depth-sorted copy)
+    for (let i = 0; i < orbs.length; i++) orbOrder[i] = i;
+    orbOrder.sort((a, b) => orbs[a].depth - orbs[b].depth);
+    const scale = Math.min(W, H) * 0.38;
+    ctx.globalAlpha = 0.72;
+    for (let k = 0; k < orbOrder.length; k++) {
+      const orb = orbs[orbOrder[k]];
+      const inv = FOV / (FOV + orb.depth + 0.001);
+      const r   = Math.max(3, orb.r * scale * inv);
+      ctx.fillStyle = orb.color;
+      ctx.beginPath();
+      ctx.arc(orb.px, orb.py, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // 4 ── Neural nodes
+    ctx.globalAlpha = 0.88;
+    for (let i = 0; i < nodes.length; i++) {
+      const nd  = nodes[i];
+      const inv = FOV / (FOV + nd.depth + 2.5);
+      const r   = Math.max(1.5, 3.8 * inv);
+      ctx.fillStyle = nd.isGold ? C_GOLD : C_GREEN;
+      ctx.beginPath();
+      ctx.arc(nd.px, nd.py, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ── Initialise & kick off the loop ────────────────────────────────────
+  const { verts, edges } = buildGeometry();
+  const nodes = buildNodes(verts);
+  const conns = buildConns(nodes);
+  const orbs  = buildOrbs();
+  orbOrder    = orbs.map((_, i) => i);
+
+  let W = 0, H = 0, dpr = 1;
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W   = container.clientWidth;
+    H   = container.clientHeight;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  resize();
+  const ro = new ResizeObserver(resize);
+  ro.observe(container);
+
+  let scrollProg = 0;
+  window.addEventListener('scroll', function () {
+    const maxS = Math.max(1, document.body.scrollHeight - window.innerHeight);
+    scrollProg = window.scrollY / maxS;
+  }, { passive: true });
+
+  const t0 = performance.now();
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+    if (W === 0 || H === 0) return;
+
+    const t  = (now - t0) * 0.001;
+    // Start facing front-left (‑0.45 rad) with slight top-down tilt (+0.12)
+    const ry = scrollProg * Math.PI * 4 + t * 0.09 - 0.45;
+    const rx = Math.sin(t * 0.28) * 0.04 + 0.12;
+    const rz = Math.cos(t * 0.18) * 0.018;
+
+    const sRX = Math.sin(rx), cRX = Math.cos(rx);
+    const sRY = Math.sin(ry), cRY = Math.cos(ry);
+    const sRZ = Math.sin(rz), cRZ = Math.cos(rz);
+    const cx    = W * 0.50;
+    const cy    = H * 0.50;
+    const scale = Math.min(W, H) * 0.38;
+
+    transformAll(verts, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
+    transformAll(nodes, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
+    transformAll(orbs,  sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
+
+    render(W, H, verts, edges, nodes, conns, orbs);
+  }
+
+  requestAnimationFrame(frame);
+
+})();
+
+</script>
+
+</body>
+</html>
