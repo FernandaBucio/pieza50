@@ -7,7 +7,7 @@
   <meta name="description" content="We use neuroscience and behavioral evidence to help teams build products, experiences, and strategies around how people actually think, feel, and decide." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
 /* ============================================================
    PIEZA50 — Landing Page Styles
@@ -15,20 +15,19 @@
 
 /* ---------- Variables ---------- */
 :root {
-  --dark:     #1C3A2E;
-  --dark2:    #2D4A3E;
-  --gold:     #C4A840;
-  --gold-lt:  #E8D89A;
-  --sage:     #8FAF8C;
-  --sage-lt:  #D4E6D2;
-  --cream:    #F5F0E8;
-  --white:    #FFFFFF;
-  --muted:    rgba(28, 58, 46, 0.55);
-  --border:   rgba(28, 58, 46, 0.12);
+  --dark:     #26312B;
+  --dark2:    #354840;
+  --gold:     #F4D77A;
+  --gold-lt:  #FFF2C7;
+  --sage:     #AFC8A5;
+  --sage-lt:  #C9DDB5;
+  --cream:    #FCFBF6;
+  --white:    #FCFBF6;
+  --muted:    rgba(38, 49, 43, 0.55);
+  --border:   rgba(38, 49, 43, 0.10);
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans:  'Inter', system-ui, sans-serif;
-  --font-brand: 'Bebas Neue', sans-serif;
 
   --nav-h: 80px;
   --max-w: 1380px;
@@ -85,10 +84,10 @@ img, svg { display: block; }
 .nav-sparkle { flex-shrink: 0; }
 .nav-brand-text { display: flex; flex-direction: column; gap: 1px; }
 .nav-brand-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   color: var(--dark);
   line-height: 1;
 }
@@ -227,9 +226,9 @@ img, svg { display: block; }
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
-  font-weight: 300;
-  line-height: 1.08;
+  font-size: clamp(3rem, 5.8vw, 5rem);
+  font-weight: 500;
+  line-height: 1.05;
   color: var(--dark);
   letter-spacing: -0.01em;
   margin-bottom: 24px;
@@ -793,9 +792,9 @@ img, svg { display: block; }
   </script>
   <script>
 /**
- * Pieza50 — brain.js
- * Pure Canvas 2D custom 3-D brain renderer (zero dependencies).
- * Scroll drives Y rotation; idle adds a gentle drift.
+ * Pieza50 — brain.js v4
+ * Premium neural-network brain. Fine botanical lines, pistachio/sage/gold palette.
+ * Scroll drives Y rotation (0→360°) + progressive connection activation.
  */
 (function () {
   'use strict';
@@ -803,110 +802,99 @@ img, svg { display: block; }
   const canvas    = document.getElementById('brain-canvas');
   const container = document.getElementById('brainContainer');
   if (!canvas || !container) return;
-
   const ctx = canvas.getContext('2d');
 
-  // ── Config ────────────────────────────────────────────────────────────
-  const LAT         = 30;   // latitude strips (denser = more realistic)
-  const LON         = 48;   // longitude strips
-  const NODE_TARGET = 110;  // neural nodes
-  const MAX_CONN    = 100;  // neural connections
-  const CONN_DIST   = 0.55; // max distance (normalised) for connections
-  const FOV         = 5.0;  // perspective field of view
+  // ── Palette ───────────────────────────────────────────────────────────
+  const PISTACHIO = [201, 221, 181]; // #C9DDB5
+  const SAGE      = [175, 200, 165]; // #AFC8A5
+  const GOLD_C    = [244, 215, 122]; // #F4D77A
 
-  // ── Colours ───────────────────────────────────────────────────────────
-  const C_WIRE   = 'rgba(45,74,62,';
-  const C_GOLD   = '#C4A840';
-  const C_GREEN  = '#2D4A3E';
-  const C_SAGE   = '#8FAF8C';
-  const C_YELLOW = '#D4A843';
+  function rgba(c, a) {
+    return 'rgba(' + c[0] + ',' + c[1] + ',' + c[2] + ',' + a.toFixed(3) + ')';
+  }
 
-  // ── Brain surface radius (stronger folds + deep interhemispheric fissure)
+  // ── Seeded RNG ────────────────────────────────────────────────────────
+  function makeRng(seed) {
+    let a = seed | 0;
+    return function () {
+      a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  // ── Brain surface radius ──────────────────────────────────────────────
   function brainR(phi, theta) {
     const xn = Math.sin(phi) * Math.cos(theta);
     const yn = Math.cos(phi);
     const zn = Math.sin(phi) * Math.sin(theta);
-
-    const f1 = Math.sin(xn * 3.5 + yn * 2.2) * Math.cos(zn * 2.6) * 0.28;
-    const f2 = Math.cos(yn * 6.0 + zn * 3.4) * Math.sin(xn * 3.8) * 0.19;
-    const f3 = Math.sin(zn * 8.5 + xn * 5.2) * Math.cos(yn * 4.8) * 0.13;
-    const f4 = Math.cos(xn * 12.5 + yn * 7.8) * Math.sin(zn * 11.5) * 0.08;
-    const f5 = Math.sin(yn * 17.0 + zn * 13.5) * 0.05;
-    const f6 = Math.cos(xn * 21.0 + zn * 17.0) * 0.03;
-
-    const fissure = Math.exp(-Math.pow(Math.cos(theta), 2) * 18) * 0.38;
-    return 1 + f1 + f2 + f3 + f4 + f5 + f6 - fissure;
+    const f1 = Math.sin(xn * 3.5 + yn * 2.2) * Math.cos(zn * 2.6) * 0.26;
+    const f2 = Math.cos(yn * 6.0 + zn * 3.4) * Math.sin(xn * 3.8) * 0.18;
+    const f3 = Math.sin(zn * 8.5 + xn * 5.2) * Math.cos(yn * 4.8) * 0.12;
+    const f4 = Math.cos(xn * 12.5 + yn * 7.8) * Math.sin(zn * 11.5) * 0.07;
+    const fissure = Math.exp(-Math.pow(Math.cos(theta), 2) * 16) * 0.35;
+    return 1 + f1 + f2 + f3 + f4 - fissure;
   }
 
-  // ── Geometry: sphere grid → vertices + edges ──────────────────────────
-  function buildGeometry() {
-    const verts = [];
-    const edges = [];
-    const grid  = [];
-
-    for (let la = 0; la <= LAT; la++) {
-      const phi = (la / LAT) * Math.PI;
-      const row = [];
-
-      for (let lo = 0; lo < LON; lo++) {
-        const theta = (lo / LON) * Math.PI * 2;
-        const r     = brainR(phi, theta);
-        const idx   = verts.length;
-
-        let ox = r * Math.sin(phi) * Math.cos(theta) * 1.52;
-        let oy = r * Math.cos(phi) * 0.66;
-        const oz = r * Math.sin(phi) * Math.sin(theta) * 0.98;
-
-        // Flatten inferior surface
-        if (oy < -0.30) {
-          const t = Math.min(1, (-oy - 0.30) / 0.55);
-          oy = -0.30 - t * 0.14;
-        }
-
-        verts.push({ ox, oy, oz, px: 0, py: 0, depth: 0 });
-        row.push(idx);
-        if (lo > 0) edges.push([idx - 1, idx]);
-      }
-      if (row.length >= 2) edges.push([row[row.length - 1], row[0]]);
-      grid.push(row);
-      if (la > 0) {
-        const prev = grid[la - 1];
-        for (let j = 0; j < LON; j++) edges.push([prev[j], row[j]]);
-      }
-    }
-    return { verts, edges };
-  }
-
-  // ── Sample neural nodes from brain surface ────────────────────────────
-  function buildNodes(verts) {
-    const step  = Math.max(1, Math.floor(verts.length / (NODE_TARGET * 1.4)));
+  // ── Random surface sampling → nodes ──────────────────────────────────
+  function buildNodes(count) {
+    const rng   = makeRng(137);
     const nodes = [];
-    let   idx   = 0;
-    for (let i = 0; i < verts.length && nodes.length < NODE_TARGET; i += step) {
-      const v = verts[i];
-      if (Math.sqrt(v.ox * v.ox + v.oz * v.oz) < 0.5) continue;
-      nodes.push({ ox: v.ox, oy: v.oy, oz: v.oz, px: 0, py: 0, depth: 0, isGold: (idx % 3 === 0) });
-      idx++;
+    while (nodes.length < count) {
+      const u     = rng() * 2 - 1;
+      const phi   = Math.acos(-u);
+      const theta = rng() * Math.PI * 2;
+      const r     = brainR(phi, theta);
+
+      let ox    = r * Math.sin(phi) * Math.cos(theta) * 1.38;
+      let oy    = r * Math.cos(phi) * 0.72;
+      const oz  = r * Math.sin(phi) * Math.sin(theta) * 0.95;
+
+      if (Math.sqrt(ox * ox + oz * oz) < 0.30) continue;
+      if (oy < -0.26) {
+        const t = Math.min(1, (-oy - 0.26) / 0.5);
+        oy = -0.26 - t * 0.10;
+      }
+
+      const rand   = rng();
+      const isGold = rand < 0.13;
+      const isSage = rand < 0.58;
+
+      nodes.push({
+        ox, oy, oz, px: 0, py: 0, depth: 0,
+        isGold,
+        color: isGold ? GOLD_C : (isSage ? SAGE : PISTACHIO),
+        size:  isGold ? (1.6 + rng() * 1.0) : (0.7 + rng() * 0.7),
+        phase: rng(),
+      });
     }
     return nodes;
   }
 
-  // ── Find neural connections ───────────────────────────────────────────
+  // ── Build connection pool ─────────────────────────────────────────────
   function buildConns(nodes) {
-    const conns    = [];
-    const perNode  = new Int32Array(nodes.length);
-    const MAX_NODE = 4;
-    outer:
+    const rng     = makeRng(42);
+    const conns   = [];
+    const perNode = new Array(nodes.length).fill(0);
+    const MAX_PER = 5;
+    const MAX_D   = 0.48;
+
     for (let i = 0; i < nodes.length; i++) {
-      if (perNode[i] >= MAX_NODE) continue;
+      if (perNode[i] >= MAX_PER) continue;
       for (let j = i + 1; j < nodes.length; j++) {
-        if (conns.length >= MAX_CONN) break outer;
-        if (perNode[j] >= MAX_NODE) continue;
+        if (perNode[j] >= MAX_PER) continue;
         const dx = nodes[i].ox - nodes[j].ox;
         const dy = nodes[i].oy - nodes[j].oy;
         const dz = nodes[i].oz - nodes[j].oz;
-        if (Math.sqrt(dx*dx + dy*dy + dz*dz) < CONN_DIST) {
-          conns.push([i, j]);
+        const d  = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        if (d < MAX_D) {
+          const isGoldConn = nodes[i].isGold || nodes[j].isGold;
+          conns.push({
+            i, j, d,
+            phase: Math.max(nodes[i].phase, nodes[j].phase),
+            color: isGoldConn ? GOLD_C : (rng() < 0.5 ? SAGE : PISTACHIO),
+          });
           perNode[i]++;
           perNode[j]++;
         }
@@ -915,105 +903,98 @@ img, svg { display: block; }
     return conns;
   }
 
-  // ── Floating orbs (tighter positions — no clipping) ───────────────────
-  function buildOrbs() {
-    return [
-      { ox: 1.78, oy:  0.30, oz:  0.08, r: 0.12, color: C_SAGE,   px:0, py:0, depth:0 },
-      { ox:-1.68, oy:  0.45, oz:  0.18, r: 0.16, color: C_SAGE,   px:0, py:0, depth:0 },
-      { ox: 1.55, oy: -0.70, oz: -0.10, r: 0.08, color: C_YELLOW, px:0, py:0, depth:0 },
-      { ox:-1.45, oy: -0.55, oz:  0.28, r: 0.10, color: C_SAGE,   px:0, py:0, depth:0 },
-      { ox: 0.80, oy:  1.10, oz:  0.35, r: 0.06, color: C_SAGE,   px:0, py:0, depth:0 },
-      { ox: 0.40, oy: -1.20, oz: -0.20, r: 0.05, color: C_YELLOW, px:0, py:0, depth:0 },
-      { ox:-0.85, oy:  0.95, oz: -0.38, r: 0.04, color: C_SAGE,   px:0, py:0, depth:0 },
-      { ox: 1.90, oy: -0.12, oz:  0.38, r: 0.05, color: C_YELLOW, px:0, py:0, depth:0 },
-      { ox:-1.25, oy: -0.95, oz: -0.28, r: 0.07, color: C_SAGE,   px:0, py:0, depth:0 },
-      { ox: 1.10, oy:  0.85, oz: -0.62, r: 0.04, color: C_SAGE,   px:0, py:0, depth:0 },
-    ];
+  // ── Satellite dots around the brain ──────────────────────────────────
+  function buildSatellites() {
+    const rng = makeRng(77);
+    return Array.from({ length: 14 }, function () {
+      const ang  = rng() * Math.PI * 2;
+      const vert = (rng() - 0.5) * Math.PI;
+      const dist = 1.65 + rng() * 0.45;
+      return {
+        ox:    dist * Math.cos(vert) * Math.cos(ang),
+        oy:    dist * Math.sin(vert) * 0.65,
+        oz:    dist * Math.cos(vert) * Math.sin(ang),
+        px: 0, py: 0, depth: 0,
+        r:     0.4 + rng() * 1.2,
+        color: rng() < 0.35 ? GOLD_C : (rng() < 0.5 ? SAGE : PISTACHIO),
+        alpha: 0.25 + rng() * 0.35,
+      };
+    });
   }
 
-  // ── Transform a point (rotate + project) ─────────────────────────────
-  function xform(pt, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale) {
+  // ── Transform ─────────────────────────────────────────────────────────
+  const FOV = 5.2;
+
+  function xform(pt, sRX, cRX, sRY, cRY, cx, cy, sc) {
     let x = pt.ox, y = pt.oy, z = pt.oz;
-
     let t = x * cRY + z * sRY;
-    z = -x * sRY + z * cRY;
-    x = t;
-
+    z = -x * sRY + z * cRY; x = t;
     t = y * cRX - z * sRX;
-    z = y * sRX + z * cRX;
-    y = t;
-
-    t = x * cRZ - y * sRZ;
-    y = x * sRZ + y * cRZ;
-    x = t;
-
+    z = y * sRX + z * cRX; y = t;
     const inv = FOV / (FOV + z + 0.001);
-    pt.px    = cx + x * inv * scale;
-    pt.py    = cy - y * inv * scale;
+    pt.px    = cx + x * inv * sc;
+    pt.py    = cy - y * inv * sc;
     pt.depth = z;
   }
 
-  function transformAll(arr, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale) {
-    for (let i = 0; i < arr.length; i++) {
-      xform(arr[i], sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
-    }
+  function xformAll(arr, sRX, cRX, sRY, cRY, cx, cy, sc) {
+    for (let i = 0; i < arr.length; i++) xform(arr[i], sRX, cRX, sRY, cRY, cx, cy, sc);
   }
 
-  // ── Render a frame ────────────────────────────────────────────────────
-  let orbOrder;
-
-  function render(W, H, verts, edges, nodes, conns, orbs) {
+  // ── Render ────────────────────────────────────────────────────────────
+  function render(W, H, nodes, conns, sats, sp) {
     ctx.clearRect(0, 0, W, H);
 
-    // 1 ── Wireframe edges
-    ctx.lineWidth = 0.6;
-    for (let k = 0; k < edges.length; k++) {
-      const a  = verts[edges[k][0]];
-      const b  = verts[edges[k][1]];
-      const dz = (a.depth + b.depth) * 0.5;
-      const al = Math.max(0.04, Math.min(0.28, 0.14 + dz * 0.035));
-      ctx.strokeStyle = C_WIRE + al.toFixed(3) + ')';
-      ctx.beginPath();
-      ctx.moveTo(a.px, a.py);
-      ctx.lineTo(b.px, b.py);
-      ctx.stroke();
-    }
+    // Scroll-driven visual params
+    const sinPi     = Math.sin(sp * Math.PI);
+    const connAct   = 0.32 + sinPi * 0.52;  // fraction of connections shown
+    const lineAlpha = 0.22 + sinPi * 0.18;
+    const nodeAlpha = 0.60 + sinPi * 0.30;
+    const goldPulse = 0.55 + sinPi * 0.40;
+    const lw        = 0.35 + sinPi * 0.15;
 
-    // 2 ── Neural connections (gold)
-    ctx.strokeStyle = 'rgba(196,168,64,0.30)';
-    ctx.lineWidth   = 0.9;
-    for (let k = 0; k < conns.length; k++) {
-      const a = nodes[conns[k][0]];
-      const b = nodes[conns[k][1]];
+    // 1 — Satellite dots
+    for (let k = 0; k < sats.length; k++) {
+      const s   = sats[k];
+      const inv = FOV / (FOV + s.depth + 0.001);
+      ctx.globalAlpha = s.alpha * (0.45 + sinPi * 0.25);
+      ctx.fillStyle   = rgba(s.color, 1);
       ctx.beginPath();
-      ctx.moveTo(a.px, a.py);
-      ctx.lineTo(b.px, b.py);
-      ctx.stroke();
-    }
-
-    // 3 ── Floating orbs (depth-sorted)
-    for (let i = 0; i < orbs.length; i++) orbOrder[i] = i;
-    orbOrder.sort((a, b) => orbs[a].depth - orbs[b].depth);
-    const scale = Math.min(W, H) * 0.30;
-    ctx.globalAlpha = 0.74;
-    for (let k = 0; k < orbOrder.length; k++) {
-      const orb = orbs[orbOrder[k]];
-      const inv = FOV / (FOV + orb.depth + 0.001);
-      const r   = Math.max(3, orb.r * scale * inv);
-      ctx.fillStyle = orb.color;
-      ctx.beginPath();
-      ctx.arc(orb.px, orb.py, r, 0, Math.PI * 2);
+      ctx.arc(s.px, s.py, Math.max(1, s.r * inv), 0, Math.PI * 2);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
 
-    // 4 ── Neural nodes
-    ctx.globalAlpha = 0.90;
+    // 2 — Neural connections (progressive activation with scroll)
+    ctx.lineWidth = lw;
+    for (let k = 0; k < conns.length; k++) {
+      const c = conns[k];
+      if (c.phase > connAct) continue;
+      const a  = nodes[c.i], b = nodes[c.j];
+      const dz = (a.depth + b.depth) * 0.5;
+      const df = Math.max(0.25, 1 - dz / 1.4 * 0.45);
+      ctx.strokeStyle = rgba(c.color, lineAlpha * df);
+      ctx.beginPath();
+      ctx.moveTo(a.px, a.py);
+      ctx.lineTo(b.px, b.py);
+      ctx.stroke();
+    }
+
+    // 3 — Nodes
     for (let i = 0; i < nodes.length; i++) {
       const nd  = nodes[i];
       const inv = FOV / (FOV + nd.depth + 2.5);
-      const r   = Math.max(1.5, 3.8 * inv);
-      ctx.fillStyle = nd.isGold ? C_GOLD : C_GREEN;
+      const df  = Math.max(0.30, 1 - nd.depth / 1.4 * 0.38);
+      let alpha, r;
+      if (nd.isGold) {
+        alpha = goldPulse * df;
+        r     = Math.max(1.5, nd.size * inv * 3.8);
+      } else {
+        alpha = nodeAlpha * df;
+        r     = Math.max(0.7, nd.size * inv * 3.0);
+      }
+      ctx.globalAlpha = Math.min(0.98, alpha);
+      ctx.fillStyle   = rgba(nd.color, 1);
       ctx.beginPath();
       ctx.arc(nd.px, nd.py, r, 0, Math.PI * 2);
       ctx.fill();
@@ -1021,12 +1002,10 @@ img, svg { display: block; }
     ctx.globalAlpha = 1;
   }
 
-  // ── Initialise & kick off the loop ────────────────────────────────────
-  const { verts, edges } = buildGeometry();
-  const nodes = buildNodes(verts);
+  // ── Setup ─────────────────────────────────────────────────────────────
+  const nodes = buildNodes(200);
   const conns = buildConns(nodes);
-  const orbs  = buildOrbs();
-  orbOrder    = orbs.map((_, i) => i);
+  const sats  = buildSatellites();
 
   let W = 0, H = 0, dpr = 1;
 
@@ -1039,13 +1018,13 @@ img, svg { display: block; }
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
   resize();
-  const ro = new ResizeObserver(resize);
-  ro.observe(container);
+  new ResizeObserver(resize).observe(container);
 
-  let scrollProg = 0;
+  // Smooth scroll (lerp)
+  let scrollTarget = 0, scrollCurrent = 0;
   window.addEventListener('scroll', function () {
     const maxS = Math.max(1, document.body.scrollHeight - window.innerHeight);
-    scrollProg = window.scrollY / maxS;
+    scrollTarget = window.scrollY / maxS;
   }, { passive: true });
 
   const t0 = performance.now();
@@ -1054,27 +1033,29 @@ img, svg { display: block; }
     requestAnimationFrame(frame);
     if (W === 0 || H === 0) return;
 
+    // Luxurious lerp — scroll feels intentional, not mechanical
+    scrollCurrent += (scrollTarget - scrollCurrent) * 0.06;
+
+    const sp = scrollCurrent;
     const t  = (now - t0) * 0.001;
-    const ry = scrollProg * Math.PI * 4 + t * 0.09 - 0.45;
-    const rx = Math.sin(t * 0.28) * 0.04 + 0.16;
-    const rz = Math.cos(t * 0.18) * 0.018;
+
+    // Y: full 360° over scroll range; tiny idle drift when still
+    const ry = sp * Math.PI * 2 + t * 0.04 - 0.30;
+    const rx = 0.10 + Math.sin(t * 0.22) * 0.03;
 
     const sRX = Math.sin(rx), cRX = Math.cos(rx);
     const sRY = Math.sin(ry), cRY = Math.cos(ry);
-    const sRZ = Math.sin(rz), cRZ = Math.cos(rz);
     const cx    = W * 0.50;
     const cy    = H * 0.50;
     const scale = Math.min(W, H) * 0.30;
 
-    transformAll(verts, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
-    transformAll(nodes, sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
-    transformAll(orbs,  sRX, cRX, sRY, cRY, sRZ, cRZ, cx, cy, scale);
+    xformAll(nodes, sRX, cRX, sRY, cRY, cx, cy, scale);
+    xformAll(sats,  sRX, cRX, sRY, cRY, cx, cy, scale);
 
-    render(W, H, verts, edges, nodes, conns, orbs);
+    render(W, H, nodes, conns, sats, sp);
   }
 
   requestAnimationFrame(frame);
-
 })();
 
   </script>

@@ -4,20 +4,19 @@
 
 /* ---------- Variables ---------- */
 :root {
-  --dark:     #1C3A2E;
-  --dark2:    #2D4A3E;
-  --gold:     #C4A840;
-  --gold-lt:  #E8D89A;
-  --sage:     #8FAF8C;
-  --sage-lt:  #D4E6D2;
-  --cream:    #F5F0E8;
-  --white:    #FFFFFF;
-  --muted:    rgba(28, 58, 46, 0.55);
-  --border:   rgba(28, 58, 46, 0.12);
+  --dark:     #26312B;
+  --dark2:    #354840;
+  --gold:     #F4D77A;
+  --gold-lt:  #FFF2C7;
+  --sage:     #AFC8A5;
+  --sage-lt:  #C9DDB5;
+  --cream:    #FCFBF6;
+  --white:    #FCFBF6;
+  --muted:    rgba(38, 49, 43, 0.55);
+  --border:   rgba(38, 49, 43, 0.10);
 
   --font-serif: 'Cormorant Garamond', Georgia, serif;
   --font-sans:  'Inter', system-ui, sans-serif;
-  --font-brand: 'Bebas Neue', sans-serif;
 
   --nav-h: 80px;
   --max-w: 1380px;
@@ -74,10 +73,10 @@ img, svg { display: block; }
 .nav-sparkle { flex-shrink: 0; }
 .nav-brand-text { display: flex; flex-direction: column; gap: 1px; }
 .nav-brand-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.14em;
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   color: var(--dark);
   line-height: 1;
 }
@@ -216,9 +215,9 @@ img, svg { display: block; }
 
 .hero-title {
   font-family: var(--font-serif);
-  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
-  font-weight: 300;
-  line-height: 1.08;
+  font-size: clamp(3rem, 5.8vw, 5rem);
+  font-weight: 500;
+  line-height: 1.05;
   color: var(--dark);
   letter-spacing: -0.01em;
   margin-bottom: 24px;
