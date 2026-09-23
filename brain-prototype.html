@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<title>Pieza50 — Brain Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@600;700&family=Barlow+Condensed:wght@700;800&family=Montserrat:wght@800;900&family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #fff; font-family: 'Inter', sans-serif; color: #1C3A2E; }
+
+  /* ── HEADER ── */
+  .preview-header {
+    padding: 18px 40px;
+    background: #fff;
+    border-bottom: 1px solid rgba(28,58,46,.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-name {
+    letter-spacing: .12em;
+    font-size: 1.3rem;
+    color: #1C3A2E;
+    line-height: 1;
+  }
+  .brand-sub {
+    font-size: .58rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(28,58,46,.55);
+    line-height: 1.5;
+  }
+
+  /* ── LAYOUT ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    min-height: calc(100vh - 57px);
+  }
+
+  /* ── BRAIN PANEL ── */
+  .brain-panel {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    border-right: 1px solid rgba(28,58,46,.08);
+  }
+  .brain-panel h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: .65rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #C4A840;
+    margin-bottom: 20px;
+    align-self: flex-start;
+  }
+  #brainCanvas {
+    border-radius: 4px;
+  }
+  .note {
+    margin-top: 14px;
+    font-size: .72rem;
+    color: rgba(28,58,46,.45);
+    text-align: center;
+    max-width: 340px;
+    line-height: 1.6;
+  }
+
+  /* ── FONT PANEL ── */
+  .font-panel {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    overflow-y: auto;
+  }
+  .font-panel h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: .65rem;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #C4A840;
+    margin-bottom: 28px;
+  }
+  .font-option {
+    padding: 24px 0;
+    border-bottom: 1px solid rgba(28,58,46,.08);
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .font-option:last-child { border-bottom: none; }
+  .font-num {
+    font-size: .65rem;
+    font-weight: 600;
+    color: #C4A840;
+    padding-top: 6px;
+    letter-spacing: .08em;
+  }
+  .font-content {}
+  .font-brand {
+    font-size: 2.4rem;
+    color: #1C3A2E;
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: .04em;
+  }
+  .f1 .font-brand { font-family: 'Bebas Neue', sans-serif; letter-spacing: .14em; }
+  .f2 .font-brand { font-family: 'Oswald', sans-serif; font-weight: 700; letter-spacing: .10em; }
+  .f3 .font-brand { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; letter-spacing: .12em; }
+  .f4 .font-brand { font-family: 'Montserrat', sans-serif; font-weight: 900; letter-spacing: .08em; font-size: 2rem; }
+
+  .font-name {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: #1C3A2E;
+    opacity: .6;
+    text-transform: uppercase;
+  }
+  .font-desc {
+    margin-top: 6px;
+    font-size: .78rem;
+    color: rgba(28,58,46,.55);
+    line-height: 1.55;
+  }
+  /* Body font preview strip */
+  .body-strip {
+    margin-top: 8px;
+    font-size: .82rem;
+    color: rgba(28,58,46,.7);
+    line-height: 1.6;
+    max-width: 360px;
+  }
+
+  /* ── FOOTER NOTE ── */
+  .proto-note {
+    background: rgba(196,168,64,.07);
+    border-top: 1px solid rgba(196,168,64,.2);
+    padding: 14px 40px;
+    font-size: .72rem;
+    color: rgba(28,58,46,.55);
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<!-- Header preview (option A — no star, no "Neuroscience") -->
+<div class="preview-header">
+  <div>
+    <div class="brand-name f2" style="font-family:'Oswald',sans-serif;font-weight:700;letter-spacing:.10em;">PIEZA50</div>
+    <div class="brand-sub">Consulting for Better Decisions</div>
+  </div>
+</div>
+
+<div class="two-col">
+
+  <!-- ── LEFT: Brain ── -->
+  <div class="brain-panel">
+    <h2>Prototipo de cerebro mejorado</h2>
+    <canvas id="brainCanvas" width="480" height="480"></canvas>
+    <p class="note">El cerebro gira automáticamente. Basado en una esfera con folds corticales de mayor amplitud, fisura interhemisférica profunda y proporciones más realistas. Los círculos flotantes nunca se recortan.</p>
+  </div>
+
+  <!-- ── RIGHT: Typography options ── -->
+  <div class="font-panel">
+    <h2>Opciones de tipografía para PIEZA50</h2>
+
+    <div class="font-option f1">
+      <span class="font-num">01</span>
+      <div class="font-content">
+        <div class="font-brand">PIEZA50</div>
+        <div class="font-name">Bebas Neue</div>
+        <div class="font-desc">Industrial, condensada, toda en mayúsculas. Impacto máximo. Usada por marcas de tecnología y consultoría de alto perfil.</div>
+        <div class="body-strip">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</div>
+      </div>
+    </div>
+
+    <div class="font-option f2">
+      <span class="font-num">02</span>
+      <div class="font-content">
+        <div class="font-brand">PIEZA50</div>
+        <div class="font-name">Oswald Bold</div>
+        <div class="font-desc">Geométrica, fuerte, moderna. Más ancha que Bebas — equilibrio entre impacto y legibilidad. Ideal para consultoría estratégica.</div>
+        <div class="body-strip">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</div>
+      </div>
+    </div>
+
+    <div class="font-option f3">
+      <span class="font-num">03</span>
+      <div class="font-content">
+        <div class="font-brand">PIEZA50</div>
+        <div class="font-name">Barlow Condensed ExtraBold</div>
+        <div class="font-desc">Técnica y moderna. Condensada sin ser extrema. Buena legibilidad en tamaños pequeños. Sensación tech+humanista.</div>
+        <div class="body-strip">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</div>
+      </div>
+    </div>
+
+    <div class="font-option f4">
+      <span class="font-num">04</span>
+      <div class="font-content">
+        <div class="font-brand">PIEZA50</div>
+        <div class="font-name">Montserrat Black</div>
+        <div class="font-desc">Geométrica y redondeada. La más "amigable" de las opciones bold. Muy popular en branding latinoamericano contemporáneo.</div>
+        <div class="body-strip">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="proto-note">
+  <strong>Cambios incluidos en este prototipo:</strong>
+  cerebro más realista (folds corticales 2× más pronunciados, fisura interhemisférica profunda, proporción 1.5× más ancho), orbs que nunca se recortan,
+  sin estrella en el header, sin "Neuroscience" en el subtítulo, texto de cuerpo en español.
+  &nbsp;·&nbsp; Elige la tipografía (01–04) y aprueba el cerebro para integrar todo.
+</div>
+
+<script>
+/* ── Improved Brain Renderer ──────────────────────────────────────────── */
+(function () {
+  const canvas = document.getElementById('brainCanvas');
+  const ctx    = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+
+  // Config
+  const LAT       = 30;
+  const LON       = 48;
+  const FOV       = 5.0;
+  const SCALE     = Math.min(W, H) * 0.28; // smaller → orbs stay inside
+
+  // Colours
+  const C_WIRE   = 'rgba(45,74,62,';
+  const C_GOLD   = '#C4A840';
+  const C_GREEN  = '#2D4A3E';
+  const C_SAGE   = '#8FAF8C';
+  const C_YELLOW = '#D4A843';
+
+  // ── Improved radius function ──────────────────────────────────────────
+  function brainR(phi, theta) {
+    const xn = Math.sin(phi) * Math.cos(theta);
+    const yn = Math.cos(phi);
+    const zn = Math.sin(phi) * Math.sin(theta);
+
+    // Stronger, more irregular cortical folds (2× previous amplitude)
+    const f1 = Math.sin(xn * 3.5 + yn * 2.2) * Math.cos(zn * 2.6) * 0.28;
+    const f2 = Math.cos(yn * 6.0 + zn * 3.4) * Math.sin(xn * 3.8) * 0.19;
+    const f3 = Math.sin(zn * 8.5 + xn * 5.2) * Math.cos(yn * 4.8) * 0.13;
+    const f4 = Math.cos(xn * 12.5 + yn * 7.8) * Math.sin(zn * 11.5) * 0.08;
+    const f5 = Math.sin(yn * 17.0 + zn * 13.5) * 0.05;
+    const f6 = Math.cos(xn * 21.0 + zn * 17.0) * 0.03;
+
+    // Deep interhemispheric fissure
+    const fissure = Math.exp(-Math.pow(Math.cos(theta), 2) * 18) * 0.38;
+
+    return 1 + f1 + f2 + f3 + f4 + f5 + f6 - fissure;
+  }
+
+  // ── Build geometry ────────────────────────────────────────────────────
+  const verts = [];
+  const edges = [];
+  const grid  = [];
+
+  for (let la = 0; la <= LAT; la++) {
+    const phi = (la / LAT) * Math.PI;
+    const row = [];
+    for (let lo = 0; lo < LON; lo++) {
+      const theta = (lo / LON) * Math.PI * 2;
+      const r     = brainR(phi, theta);
+      const idx   = verts.length;
+
+      let ox = r * Math.sin(phi) * Math.cos(theta) * 1.52; // much wider
+      let oy = r * Math.cos(phi) * 0.66;                    // much flatter
+      let oz = r * Math.sin(phi) * Math.sin(theta) * 0.98;
+
+      // Flatten inferior surface (brain sits on skull)
+      if (oy < -0.30) {
+        const t = Math.min(1, (-oy - 0.30) / 0.55);
+        oy = -0.30 - t * 0.14;
+      }
+
+      verts.push({ ox, oy, oz, px: 0, py: 0, depth: 0 });
+      row.push(idx);
+      if (lo > 0) edges.push([idx - 1, idx]);
+    }
+    if (row.length >= 2) edges.push([row[row.length - 1], row[0]]);
+    grid.push(row);
+    if (la > 0) {
+      const prev = grid[la - 1];
+      for (let j = 0; j < LON; j++) edges.push([prev[j], row[j]]);
+    }
+  }
+
+  // ── Neural nodes (skip polar caps) ───────────────────────────────────
+  const NODE_TARGET = 110;
+  const step  = Math.max(1, Math.floor(verts.length / (NODE_TARGET * 1.4)));
+  const nodes = [];
+  let   nIdx  = 0;
+  for (let i = 0; i < verts.length && nodes.length < NODE_TARGET; i += step) {
+    const v = verts[i];
+    if (Math.sqrt(v.ox * v.ox + v.oz * v.oz) < 0.5) continue;
+    nodes.push({ ox: v.ox, oy: v.oy, oz: v.oz, px: 0, py: 0, depth: 0, isGold: (nIdx % 3 === 0) });
+    nIdx++;
+  }
+
+  // ── Connections ───────────────────────────────────────────────────────
+  const MAX_CONN = 100, CONN_DIST = 0.55, MAX_NODE = 4;
+  const conns = [], perNode = new Int32Array(nodes.length);
+  outer:
+  for (let i = 0; i < nodes.length; i++) {
+    if (perNode[i] >= MAX_NODE) continue;
+    for (let j = i + 1; j < nodes.length; j++) {
+      if (conns.length >= MAX_CONN) break outer;
+      if (perNode[j] >= MAX_NODE) continue;
+      const dx = nodes[i].ox - nodes[j].ox;
+      const dy = nodes[i].oy - nodes[j].oy;
+      const dz = nodes[i].oz - nodes[j].oz;
+      if (Math.sqrt(dx*dx + dy*dy + dz*dz) < CONN_DIST) {
+        conns.push([i, j]); perNode[i]++; perNode[j]++;
+      }
+    }
+  }
+
+  // ── Floating orbs (tighter — no clipping) ────────────────────────────
+  const orbs = [
+    { ox: 1.78, oy:  0.30, oz:  0.08, r: 0.12, color: C_SAGE   },
+    { ox:-1.68, oy:  0.45, oz:  0.18, r: 0.16, color: C_SAGE   },
+    { ox: 1.55, oy: -0.70, oz: -0.10, r: 0.08, color: C_YELLOW },
+    { ox:-1.45, oy: -0.55, oz:  0.28, r: 0.10, color: C_SAGE   },
+    { ox: 0.80, oy:  1.10, oz:  0.35, r: 0.06, color: C_SAGE   },
+    { ox: 0.40, oy: -1.20, oz: -0.20, r: 0.05, color: C_YELLOW },
+    { ox:-0.85, oy:  0.95, oz: -0.38, r: 0.04, color: C_SAGE   },
+    { ox: 1.90, oy: -0.12, oz:  0.38, r: 0.05, color: C_YELLOW },
+    { ox:-1.25, oy: -0.95, oz: -0.28, r: 0.07, color: C_SAGE   },
+    { ox: 1.10, oy:  0.85, oz: -0.62, r: 0.04, color: C_SAGE   },
+  ].map(o => ({ ...o, px: 0, py: 0, depth: 0 }));
+
+  const orbOrder = orbs.map((_, i) => i);
+
+  // ── Transform ─────────────────────────────────────────────────────────
+  function xform(pt, sRX, cRX, sRY, cRY, sRZ, cRZ) {
+    let x = pt.ox, y = pt.oy, z = pt.oz;
+    let t = x * cRY + z * sRY; z = -x * sRY + z * cRY; x = t;
+    t = y * cRX - z * sRX; z = y * sRX + z * cRX; y = t;
+    t = x * cRZ - y * sRZ; y = x * sRZ + y * cRZ; x = t;
+    const inv = FOV / (FOV + z + 0.001);
+    pt.px = W * 0.5 + x * inv * SCALE;
+    pt.py = H * 0.5 - y * inv * SCALE;
+    pt.depth = z;
+  }
+  function xformAll(arr, sRX, cRX, sRY, cRY, sRZ, cRZ) {
+    for (let i = 0; i < arr.length; i++) xform(arr[i], sRX, cRX, sRY, cRY, sRZ, cRZ);
+  }
+
+  // ── Render ────────────────────────────────────────────────────────────
+  function render() {
+    ctx.clearRect(0, 0, W, H);
+
+    // Wireframe
+    ctx.lineWidth = 0.6;
+    for (let k = 0; k < edges.length; k++) {
+      const a = verts[edges[k][0]], b = verts[edges[k][1]];
+      const dz = (a.depth + b.depth) * 0.5;
+      const al = Math.max(0.04, Math.min(0.28, 0.14 + dz * 0.035));
+      ctx.strokeStyle = C_WIRE + al.toFixed(3) + ')';
+      ctx.beginPath(); ctx.moveTo(a.px, a.py); ctx.lineTo(b.px, b.py); ctx.stroke();
+    }
+
+    // Connections
+    ctx.strokeStyle = 'rgba(196,168,64,0.30)';
+    ctx.lineWidth   = 0.9;
+    for (let k = 0; k < conns.length; k++) {
+      const a = nodes[conns[k][0]], b = nodes[conns[k][1]];
+      ctx.beginPath(); ctx.moveTo(a.px, a.py); ctx.lineTo(b.px, b.py); ctx.stroke();
+    }
+
+    // Orbs (depth-sorted)
+    for (let i = 0; i < orbs.length; i++) orbOrder[i] = i;
+    orbOrder.sort((a, b) => orbs[a].depth - orbs[b].depth);
+    ctx.globalAlpha = 0.74;
+    for (let k = 0; k < orbOrder.length; k++) {
+      const orb = orbs[orbOrder[k]];
+      const inv = FOV / (FOV + orb.depth + 0.001);
+      const r   = Math.max(3, orb.r * SCALE * inv);
+      ctx.fillStyle = orb.color;
+      ctx.beginPath(); ctx.arc(orb.px, orb.py, r, 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+
+    // Nodes
+    ctx.globalAlpha = 0.90;
+    for (let i = 0; i < nodes.length; i++) {
+      const nd  = nodes[i];
+      const inv = FOV / (FOV + nd.depth + 2.5);
+      ctx.fillStyle = nd.isGold ? C_GOLD : C_GREEN;
+      ctx.beginPath(); ctx.arc(nd.px, nd.py, Math.max(1.5, 3.8 * inv), 0, Math.PI * 2); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ── Animate ───────────────────────────────────────────────────────────
+  const t0 = performance.now();
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const t  = (now - t0) * 0.001;
+    const ry = t * 0.22 - 0.5;    // slow idle rotation, starting front-left
+    const rx = Math.sin(t * 0.28) * 0.04 + 0.16;
+    const rz = Math.cos(t * 0.18) * 0.018;
+    const sRX = Math.sin(rx), cRX = Math.cos(rx);
+    const sRY = Math.sin(ry), cRY = Math.cos(ry);
+    const sRZ = Math.sin(rz), cRZ = Math.cos(rz);
+    xformAll(verts, sRX, cRX, sRY, cRY, sRZ, cRZ);
+    xformAll(nodes, sRX, cRX, sRY, cRY, sRZ, cRZ);
+    xformAll(orbs,  sRX, cRX, sRY, cRY, sRZ, cRZ);
+    render();
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
