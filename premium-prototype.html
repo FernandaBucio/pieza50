@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<title>Pieza50 — Premium Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=Space+Grotesk:wght@600;700&family=Syne:wght@700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { background: #FCFBF6; }
+body { font-family: 'Inter', sans-serif; color: #26312B; background: #FCFBF6; }
+
+/* ── SECTION LABEL ── */
+.section-label {
+  padding: 20px 40px 14px;
+  font-size: .6rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #AFC8A5;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(38,49,43,.08);
+}
+
+/* ── HERO PREVIEW (full width, three options stacked) ── */
+.hero-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(38,49,43,.08);
+  border-bottom: 1px solid rgba(38,49,43,.08);
+}
+
+.hero-card {
+  background: #FCFBF6;
+  padding: 48px 40px;
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  min-height: 340px;
+}
+
+.hero-text-block {
+  flex: 1;
+  min-width: 0;
+}
+
+.font-badge {
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #F4D77A;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.hero-title {
+  font-size: 2.6rem;
+  color: #26312B;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin-bottom: 14px;
+}
+.f-playfair  .hero-title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 2.4rem; }
+.f-space     .hero-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+.f-cormorant .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 3rem; }
+
+.hero-title em { font-style: italic; }
+
+.title-line {
+  width: 100px;
+  height: 1.5px;
+  background: #F4D77A;
+  margin-bottom: 16px;
+  border-radius: 1px;
+}
+
+.hero-body {
+  font-size: .82rem;
+  line-height: 1.72;
+  color: #26312B;
+  opacity: .6;
+  max-width: 240px;
+  font-weight: 400;
+}
+
+.cta-link {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #26312B;
+  border-bottom: 1.5px solid #26312B;
+  padding-bottom: 3px;
+}
+
+.canvas-wrap {
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+}
+.canvas-wrap canvas { width: 100%; height: 100%; }
+
+/* ── FOOTER NOTE ── */
+.proto-note {
+  padding: 14px 40px;
+  font-size: .72rem;
+  color: rgba(38,49,43,.45);
+  line-height: 1.6;
+  border-top: 1px solid rgba(38,49,43,.08);
+  background: #fff;
+}
+</style>
+</head>
+<body>
+
+<div class="section-label">Prototipo Premium — cerebro estilo red neural · 3 opciones de tipografía · fondo warm off-white</div>
+
+<div class="hero-row">
+
+  <!-- Card 1: Playfair Display -->
+  <div class="hero-card f-playfair">
+    <div class="hero-text-block">
+      <span class="font-badge">01 · Playfair Display</span>
+      <h1 class="hero-title">Science that<br>moves <em>people.</em></h1>
+      <div class="title-line"></div>
+      <p class="hero-body">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</p>
+      <a class="cta-link">EXPLORA NUESTRO TRABAJO →</a>
+    </div>
+    <div class="canvas-wrap"><canvas id="cA" width="440" height="440"></canvas></div>
+  </div>
+
+  <!-- Card 2: Space Grotesk -->
+  <div class="hero-card f-space">
+    <div class="hero-text-block">
+      <span class="font-badge">02 · Space Grotesk</span>
+      <h1 class="hero-title">Science that<br>moves <em>people.</em></h1>
+      <div class="title-line"></div>
+      <p class="hero-body">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</p>
+      <a class="cta-link">EXPLORA NUESTRO TRABAJO →</a>
+    </div>
+    <div class="canvas-wrap"><canvas id="cB" width="440" height="440"></canvas></div>
+  </div>
+
+  <!-- Card 3: Cormorant Garamond -->
+  <div class="hero-card f-cormorant">
+    <div class="hero-text-block">
+      <span class="font-badge">03 · Cormorant Garamond</span>
+      <h1 class="hero-title">Science that<br>moves <em>people.</em></h1>
+      <div class="title-line"></div>
+      <p class="hero-body">Usamos neurociencia y evidencia conductual para ayudar a equipos a construir mejores decisiones.</p>
+      <a class="cta-link">EXPLORA NUESTRO TRABAJO →</a>
+    </div>
+    <div class="canvas-wrap"><canvas id="cC" width="440" height="440"></canvas></div>
+  </div>
+
+</div>
+
+<div class="proto-note">
+  <strong>Cerebro:</strong> red neural de líneas finas estilo científico-botánico · paleta pistacho (#C9DDB5) + sage (#AFC8A5) + butter yellow (#F4D77A) · fondo warm off-white (#FCFBF6) · nodos dorados que se activan con el scroll · sin wireframe de malla · solo conexiones orgánicas.
+  &nbsp;·&nbsp; <strong>Dime el número de fuente (01, 02 o 03)</strong> y lo integro.
+</div>
+
+<script>
+/* ── Shared brain renderer ──────────────────────────────────────────────── */
+
+// Palette as arrays for rgba()
+const PISTACHIO = [201, 221, 181];
+const SAGE      = [175, 200, 165];
+const GOLD_C    = [244, 215, 122];
+const CHARCOAL  = [38,  49,  43];
+
+function rgba(c, a) { return `rgba(${c[0]},${c[1]},${c[2]},${a.toFixed(3)})`; }
+
+function makeRng(seed) {
+  let a = seed | 0;
+  return function() {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function brainR(phi, theta) {
+  const xn = Math.sin(phi)*Math.cos(theta);
+  const yn = Math.cos(phi);
+  const zn = Math.sin(phi)*Math.sin(theta);
+  const f1 = Math.sin(xn*3.5+yn*2.2)*Math.cos(zn*2.6)*0.26;
+  const f2 = Math.cos(yn*6.0+zn*3.4)*Math.sin(xn*3.8)*0.18;
+  const f3 = Math.sin(zn*8.5+xn*5.2)*Math.cos(yn*4.8)*0.12;
+  const f4 = Math.cos(xn*12.5+yn*7.8)*Math.sin(zn*11.5)*0.07;
+  const fissure = Math.exp(-Math.pow(Math.cos(theta),2)*16)*0.35;
+  return 1+f1+f2+f3+f4-fissure;
+}
+
+function buildNodes(COUNT) {
+  const rng = makeRng(137);
+  const nodes = [];
+  while (nodes.length < COUNT) {
+    const u     = rng()*2-1;
+    const phi   = Math.acos(-u);
+    const theta = rng()*Math.PI*2;
+    const r     = brainR(phi, theta);
+    let   ox    = r*Math.sin(phi)*Math.cos(theta)*1.38;
+    let   oy    = r*Math.cos(phi)*0.72;
+    const oz    = r*Math.sin(phi)*Math.sin(theta)*0.95;
+    if (Math.sqrt(ox*ox+oz*oz) < 0.30) continue;
+    if (oy < -0.26) { const t=Math.min(1,(-oy-0.26)/0.5); oy=-0.26-t*0.10; }
+    const rand   = rng();
+    const isGold = rand < 0.13;
+    const isSage = rand < 0.58;
+    nodes.push({
+      ox, oy, oz, px:0, py:0, depth:0,
+      isGold,
+      color: isGold ? GOLD_C : (isSage ? SAGE : PISTACHIO),
+      size:  isGold ? (1.6+rng()*1.0) : (0.7+rng()*0.7),
+      phase: rng(),
+    });
+  }
+  return nodes;
+}
+
+function buildConns(nodes) {
+  const conns=[], perNode=new Array(nodes.length).fill(0), MAX_PER=5, MAX_D=0.48;
+  for(let i=0;i<nodes.length;i++){
+    if(perNode[i]>=MAX_PER) continue;
+    for(let j=i+1;j<nodes.length;j++){
+      if(perNode[j]>=MAX_PER) continue;
+      const dx=nodes[i].ox-nodes[j].ox,dy=nodes[i].oy-nodes[j].oy,dz=nodes[i].oz-nodes[j].oz;
+      const d=Math.sqrt(dx*dx+dy*dy+dz*dz);
+      if(d<MAX_D){
+        const isGoldConn=nodes[i].isGold||nodes[j].isGold;
+        conns.push({i,j,d,phase:Math.max(nodes[i].phase,nodes[j].phase),
+          color: isGoldConn?GOLD_C:(Math.random()<0.5?SAGE:PISTACHIO)});
+        perNode[i]++; perNode[j]++;
+      }
+    }
+  }
+  return conns;
+}
+
+function buildSatellites(rngSeed) {
+  const rng=makeRng(rngSeed);
+  return Array.from({length:14},()=>{
+    const ang=rng()*Math.PI*2,vert=(rng()-.5)*Math.PI,dist=1.65+rng()*0.45;
+    return {
+      ox:dist*Math.cos(vert)*Math.cos(ang),
+      oy:dist*Math.sin(vert)*0.65,
+      oz:dist*Math.cos(vert)*Math.sin(ang),
+      px:0,py:0,depth:0,
+      r:0.4+rng()*1.2,
+      color:rng()<0.35?GOLD_C:(rng()<0.5?SAGE:PISTACHIO),
+      alpha:0.25+rng()*0.35,
+    };
+  });
+}
+
+const FOV=5.2;
+function xform(pt,sRX,cRX,sRY,cRY,cx,cy,sc){
+  let x=pt.ox,y=pt.oy,z=pt.oz;
+  let t=x*cRY+z*sRY; z=-x*sRY+z*cRY; x=t;
+  t=y*cRX-z*sRX; z=y*sRX+z*cRX; y=t;
+  const inv=FOV/(FOV+z+0.001);
+  pt.px=cx+x*inv*sc; pt.py=cy-y*inv*sc; pt.depth=z;
+}
+function xformAll(arr,sRX,cRX,sRY,cRY,cx,cy,sc){
+  for(let i=0;i<arr.length;i++) xform(arr[i],sRX,cRX,sRY,cRY,cx,cy,sc);
+}
+
+function renderBrain(ctx, W, H, nodes, conns, sats, sp) {
+  ctx.clearRect(0,0,W,H);
+  const sinPi  = Math.sin(sp*Math.PI);
+  const connAct = 0.32 + sinPi*0.52;
+  const lineAlpha = 0.22 + sinPi*0.18;
+  const nodeAlpha = 0.60 + sinPi*0.30;
+  const goldPulse = 0.55 + sinPi*0.40;
+  const lw = 0.35 + sinPi*0.15;
+
+  // Satellites
+  for(let k=0;k<sats.length;k++){
+    const s=sats[k];
+    const inv=FOV/(FOV+s.depth+0.001);
+    const r=Math.max(1,s.r*inv);
+    ctx.globalAlpha=s.alpha*(0.45+sinPi*0.25);
+    ctx.fillStyle=rgba(s.color,1);
+    ctx.beginPath(); ctx.arc(s.px,s.py,r,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+
+  // Connections
+  ctx.lineWidth=lw;
+  for(let k=0;k<conns.length;k++){
+    const c=conns[k];
+    if(c.phase>connAct) continue;
+    const a=nodes[c.i],b=nodes[c.j];
+    const avgD=(a.depth+b.depth)*0.5;
+    const df=Math.max(0.25,1-avgD/1.4*0.45);
+    ctx.strokeStyle=rgba(c.color,lineAlpha*df);
+    ctx.beginPath(); ctx.moveTo(a.px,a.py); ctx.lineTo(b.px,b.py); ctx.stroke();
+  }
+
+  // Nodes
+  for(let i=0;i<nodes.length;i++){
+    const nd=nodes[i];
+    const inv=FOV/(FOV+nd.depth+2.5);
+    const df=Math.max(0.30,1-nd.depth/1.4*0.38);
+    let alpha,r;
+    if(nd.isGold){
+      alpha=goldPulse*df;
+      r=Math.max(1.5,nd.size*inv*3.8);
+    } else {
+      alpha=nodeAlpha*df;
+      r=Math.max(0.7,nd.size*inv*3.0);
+    }
+    ctx.globalAlpha=Math.min(0.98,alpha);
+    ctx.fillStyle=rgba(nd.color,1);
+    ctx.beginPath(); ctx.arc(nd.px,nd.py,r,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+}
+
+// Build shared geometry
+const nodes = buildNodes(200);
+const conns = buildConns(nodes);
+const sats  = buildSatellites(77);
+
+// Deep-clone helper so each canvas has its own transformed copies
+function cloneArr(arr){ return arr.map(o=>({...o})); }
+
+const nodesA=cloneArr(nodes), satsA=cloneArr(sats);
+const nodesB=cloneArr(nodes), satsB=cloneArr(sats);
+const nodesC=cloneArr(nodes), satsC=cloneArr(sats);
+
+function makeBrainLoop(canvasId, nodesLocal, satsLocal, phaseOffset) {
+  const canvas=document.getElementById(canvasId);
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width, H=canvas.height;
+  const sc=Math.min(W,H)*0.30;
+  const t0=performance.now();
+  const SP=0.50+phaseOffset; // show a different scroll phase per card
+
+  function frame(now){
+    requestAnimationFrame(frame);
+    const t=(now-t0)*0.001;
+    const ry=SP*Math.PI*2+t*0.12;
+    const rx=0.10+Math.sin(t*0.22)*0.03;
+    const sRX=Math.sin(rx),cRX=Math.cos(rx);
+    const sRY=Math.sin(ry),cRY=Math.cos(ry);
+    xformAll(nodesLocal,sRX,cRX,sRY,cRY,W*0.5,H*0.5,sc);
+    xformAll(satsLocal, sRX,cRX,sRY,cRY,W*0.5,H*0.5,sc);
+    renderBrain(ctx,W,H,nodesLocal,conns,satsLocal,SP);
+  }
+  requestAnimationFrame(frame);
+}
+
+// Show three different scroll phases so the reviewer sees the range
+makeBrainLoop('cA', nodesA, satsA, 0.00);  // 50% scroll — front view
+makeBrainLoop('cB', nodesB, satsB, 0.10);  // 60% scroll — slightly rotated
+makeBrainLoop('cC', nodesC, satsC, -0.10); // 40% — other side
+</script>
+</body>
+</html>
