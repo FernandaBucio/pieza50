@@ -1,7 +1,8 @@
 /**
- * Pieza50 — brain.js v4
+ * Pieza50 — brain.js v5
  * Premium neural-network brain. Fine botanical lines, pistachio/sage/gold palette.
  * Scroll drives Y rotation (0→360°) + progressive connection activation.
+ * Floating orbs orbit the brain shape, depth-sorted between connections and nodes.
  */
 (function () {
   'use strict';
@@ -110,23 +111,20 @@
     return conns;
   }
 
-  // ── Satellite dots around the brain ──────────────────────────────────
-  function buildSatellites() {
-    const rng = makeRng(77);
-    return Array.from({ length: 14 }, function () {
-      const ang  = rng() * Math.PI * 2;
-      const vert = (rng() - 0.5) * Math.PI;
-      const dist = 1.65 + rng() * 0.45;
-      return {
-        ox:    dist * Math.cos(vert) * Math.cos(ang),
-        oy:    dist * Math.sin(vert) * 0.65,
-        oz:    dist * Math.cos(vert) * Math.sin(ang),
-        px: 0, py: 0, depth: 0,
-        r:     0.4 + rng() * 1.2,
-        color: rng() < 0.35 ? GOLD_C : (rng() < 0.5 ? SAGE : PISTACHIO),
-        alpha: 0.25 + rng() * 0.35,
-      };
-    });
+  // ── Floating orbs around the brain ───────────────────────────────────
+  function buildOrbs() {
+    return [
+      { ox:  1.72, oy:  0.35, oz:  0.08, r: 0.10, color: SAGE,      px: 0, py: 0, depth: 0 },
+      { ox: -1.62, oy:  0.50, oz:  0.16, r: 0.14, color: PISTACHIO, px: 0, py: 0, depth: 0 },
+      { ox:  1.48, oy: -0.65, oz: -0.10, r: 0.07, color: GOLD_C,    px: 0, py: 0, depth: 0 },
+      { ox: -1.38, oy: -0.52, oz:  0.24, r: 0.09, color: SAGE,      px: 0, py: 0, depth: 0 },
+      { ox:  0.78, oy:  1.05, oz:  0.32, r: 0.05, color: PISTACHIO, px: 0, py: 0, depth: 0 },
+      { ox:  0.38, oy: -1.15, oz: -0.18, r: 0.04, color: GOLD_C,    px: 0, py: 0, depth: 0 },
+      { ox: -0.82, oy:  0.92, oz: -0.35, r: 0.04, color: SAGE,      px: 0, py: 0, depth: 0 },
+      { ox:  1.85, oy: -0.10, oz:  0.35, r: 0.05, color: GOLD_C,    px: 0, py: 0, depth: 0 },
+      { ox: -1.20, oy: -0.90, oz: -0.25, r: 0.06, color: PISTACHIO, px: 0, py: 0, depth: 0 },
+      { ox:  1.05, oy:  0.80, oz: -0.58, r: 0.04, color: SAGE,      px: 0, py: 0, depth: 0 },
+    ];
   }
 
   // ── Transform ─────────────────────────────────────────────────────────
@@ -149,30 +147,18 @@
   }
 
   // ── Render ────────────────────────────────────────────────────────────
-  function render(W, H, nodes, conns, sats, sp) {
+  function render(W, H, nodes, conns, orbs, sp) {
     ctx.clearRect(0, 0, W, H);
 
-    // Scroll-driven visual params
+    // Scroll-driven visual params (increased base opacities for visibility)
     const sinPi     = Math.sin(sp * Math.PI);
-    const connAct   = 0.32 + sinPi * 0.52;  // fraction of connections shown
-    const lineAlpha = 0.22 + sinPi * 0.18;
-    const nodeAlpha = 0.60 + sinPi * 0.30;
-    const goldPulse = 0.55 + sinPi * 0.40;
-    const lw        = 0.35 + sinPi * 0.15;
+    const connAct   = 0.60 + sinPi * 0.52;  // fraction of connections shown
+    const lineAlpha = 0.40 + sinPi * 0.18;
+    const nodeAlpha = 0.82 + sinPi * 0.30;
+    const goldPulse = 0.82 + sinPi * 0.40;
+    const lw        = 0.50 + sinPi * 0.15;
 
-    // 1 — Satellite dots
-    for (let k = 0; k < sats.length; k++) {
-      const s   = sats[k];
-      const inv = FOV / (FOV + s.depth + 0.001);
-      ctx.globalAlpha = s.alpha * (0.45 + sinPi * 0.25);
-      ctx.fillStyle   = rgba(s.color, 1);
-      ctx.beginPath();
-      ctx.arc(s.px, s.py, Math.max(1, s.r * inv), 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-
-    // 2 — Neural connections (progressive activation with scroll)
+    // 1 — Neural connections (progressive activation with scroll)
     ctx.lineWidth = lw;
     for (let k = 0; k < conns.length; k++) {
       const c = conns[k];
@@ -186,6 +172,20 @@
       ctx.lineTo(b.px, b.py);
       ctx.stroke();
     }
+
+    // 2 — Orbs (depth-sorted, painter's algorithm, between connections and nodes)
+    const sortedOrbs = orbs.slice().sort(function (a, b) { return a.depth - b.depth; });
+    for (let k = 0; k < sortedOrbs.length; k++) {
+      const orb = sortedOrbs[k];
+      const inv = FOV / (FOV + orb.depth + 0.001);
+      const r   = Math.max(1.5, orb.r * inv * 60);
+      ctx.globalAlpha = 0.65;
+      ctx.fillStyle   = rgba(orb.color, 1);
+      ctx.beginPath();
+      ctx.arc(orb.px, orb.py, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
 
     // 3 — Nodes
     for (let i = 0; i < nodes.length; i++) {
@@ -212,7 +212,7 @@
   // ── Setup ─────────────────────────────────────────────────────────────
   const nodes = buildNodes(200);
   const conns = buildConns(nodes);
-  const sats  = buildSatellites();
+  const orbs  = buildOrbs();
 
   let W = 0, H = 0, dpr = 1;
 
@@ -257,9 +257,9 @@
     const scale = Math.min(W, H) * 0.30;
 
     xformAll(nodes, sRX, cRX, sRY, cRY, cx, cy, scale);
-    xformAll(sats,  sRX, cRX, sRY, cRY, cx, cy, scale);
+    xformAll(orbs,  sRX, cRX, sRY, cRY, cx, cy, scale);
 
-    render(W, H, nodes, conns, sats, sp);
+    render(W, H, nodes, conns, orbs, sp);
   }
 
   requestAnimationFrame(frame);
