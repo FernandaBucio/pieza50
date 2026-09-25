@@ -64,34 +64,84 @@
     revealObserver.observe(el);
   });
 
-  // ── Hero particles canvas ────────────────────────────────────────────────
+  // ── Hero visual canvas — overlapping petal/lemniscate curves + floating dots ─
   const heroCanvas = document.getElementById('hero-particles');
   if (heroCanvas) {
     const hCtx = heroCanvas.getContext('2d');
     const rng  = makeRng(33);
 
     function resizeHero() {
-      heroCanvas.width  = heroCanvas.offsetWidth;
-      heroCanvas.height = heroCanvas.offsetHeight;
+      const parent = heroCanvas.parentElement;
+      heroCanvas.width  = parent ? parent.offsetWidth  : heroCanvas.offsetWidth;
+      heroCanvas.height = parent ? parent.offsetHeight : heroCanvas.offsetHeight;
     }
     resizeHero();
-    new ResizeObserver(resizeHero).observe(heroCanvas);
+    new ResizeObserver(resizeHero).observe(heroCanvas.parentElement || heroCanvas);
 
-    const particles = Array.from({ length: 22 }, () => ({
-      x:     rng(),
-      y:     rng(),
-      vx:    (rng() - 0.5) * 0.0003,
-      vy:    (rng() - 0.5) * 0.0003,
-      r:     0.8 + rng() * 2.2,
-      color: rng() < 0.35 ? GOLD_C : (rng() < 0.5 ? SAGE : PISTACHIO),
-      alpha: 0.15 + rng() * 0.35,
+    // Floating dot particles scattered around the visual
+    const dots = Array.from({ length: 18 }, () => ({
+      x:     rng(), y: rng(),
+      vx:    (rng() - 0.5) * 0.00018,
+      vy:    (rng() - 0.5) * 0.00018,
+      r:     1.2 + rng() * 3.5,
+      color: rng() < 0.3 ? GOLD_C : (rng() < 0.5 ? SAGE : PISTACHIO),
+      alpha: 0.45 + rng() * 0.4,
     }));
 
-    (function hFrame() {
+    // Petal curve definitions: 8 overlapping rose/lemniscate curves
+    // Each curve: rotation offset, petal count k, color, alpha, line width
+    const curves = [
+      { rot: 0,                k: 3, color: SAGE,      al: 0.28, lw: 0.7  },
+      { rot: Math.PI / 6,      k: 4, color: PISTACHIO, al: 0.22, lw: 0.6  },
+      { rot: Math.PI / 4,      k: 3, color: SAGE,      al: 0.18, lw: 0.5  },
+      { rot: Math.PI / 3,      k: 2, color: PISTACHIO, al: 0.20, lw: 0.6  },
+      { rot: Math.PI * 0.55,   k: 5, color: SAGE,      al: 0.14, lw: 0.45 },
+      { rot: Math.PI * 0.72,   k: 3, color: PISTACHIO, al: 0.16, lw: 0.5  },
+      { rot: Math.PI * 0.88,   k: 4, color: SAGE,      al: 0.12, lw: 0.4  },
+      { rot: Math.PI * 1.1,    k: 2, color: GOLD_C,    al: 0.18, lw: 0.55 },
+    ];
+
+    const t0 = performance.now();
+
+    (function hFrame(now) {
       requestAnimationFrame(hFrame);
       const W = heroCanvas.width, H = heroCanvas.height;
+      if (W === 0 || H === 0) return;
       hCtx.clearRect(0, 0, W, H);
-      particles.forEach(p => {
+
+      const cx = W * 0.5, cy = H * 0.5;
+      const R  = Math.min(W, H) * 0.40;
+      const t  = (now - t0) * 0.001;
+
+      // Draw rose curves — very slowly breathing/rotating
+      const STEPS = 400;
+      curves.forEach((cv, ci) => {
+        const drift = t * 0.008 * (ci % 2 === 0 ? 1 : -1);
+        hCtx.beginPath();
+        hCtx.strokeStyle = rgba(cv.color, cv.al);
+        hCtx.lineWidth   = cv.lw;
+        for (let s = 0; s <= STEPS; s++) {
+          const theta = (s / STEPS) * Math.PI * 2;
+          const r     = R * Math.abs(Math.cos(cv.k * theta + drift));
+          const angle = theta + cv.rot + drift * 0.3;
+          const px    = cx + r * Math.cos(angle);
+          const py    = cy + r * Math.sin(angle) * 0.9;
+          s === 0 ? hCtx.moveTo(px, py) : hCtx.lineTo(px, py);
+        }
+        hCtx.stroke();
+      });
+
+      // Gold centre glow
+      const grd = hCtx.createRadialGradient(cx, cy, 0, cx, cy, R * 0.18);
+      grd.addColorStop(0, rgba(GOLD_C, 0.25));
+      grd.addColorStop(1, rgba(GOLD_C, 0));
+      hCtx.fillStyle = grd;
+      hCtx.beginPath();
+      hCtx.arc(cx, cy, R * 0.18, 0, Math.PI * 2);
+      hCtx.fill();
+
+      // Floating dots
+      dots.forEach(p => {
         p.x += p.vx; p.y += p.vy;
         if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
         if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
