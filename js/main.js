@@ -89,3 +89,19 @@
   }
 
 })();
+
+// ── Scroll reveal ─────────────────────────────────────────
+(function () {
+  const revealEls = document.querySelectorAll('.reveal');
+  if (!revealEls.length) return;
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, i) {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.04) + 's';
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(function (el) { io.observe(el); });
+})();

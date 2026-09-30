@@ -499,6 +499,539 @@ img, svg { display: block; }
 }
 
 </style>
+  <style>
+/* ============================================================
+   PIEZA50 — Sections CSS
+   New long-form page sections below the hero.
+   ============================================================ */
+
+/* ── Extra color tokens ──────────────────────────────────── */
+:root {
+  --forest:      #2A3830;
+  --pale-sage:   #EEF5EA;
+  --pale-yellow: #FFFBEA;
+  --moss:        #3A4F42;
+}
+
+/* ── Scroll reveal ───────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 750ms ease, transform 750ms cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Shared eyebrow labels ───────────────────────────────── */
+.eyebrow-light {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(252,251,246,0.42);
+  display: block; margin-bottom: 20px;
+}
+.eyebrow-gold {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block; margin-bottom: 20px;
+}
+.eyebrow-dark {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block; margin-bottom: 20px;
+}
+
+/* ============================================================
+   SECTION: THE PROBLEM  (dark charcoal bg)
+   ============================================================ */
+.s-problem {
+  background: var(--dark);
+  padding: 100px var(--px);
+}
+.s-problem-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.s-problem-statement {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+  font-weight: 300; line-height: 1.15;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-top: 8px;
+}
+.s-problem-list {
+  list-style: none;
+  margin-bottom: 48px;
+}
+.s-problem-list li {
+  font-size: 1rem; line-height: 1.7;
+  color: var(--cream); opacity: 0.58;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(252,251,246,0.08);
+  transition-delay: calc(var(--li, 0) * 80ms);
+}
+.s-problem-list li:first-child { border-top: 1px solid rgba(252,251,246,0.08); }
+.s-problem-insight {
+  padding-top: 36px;
+}
+.s-problem-insight p {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 300;
+  color: var(--cream); opacity: 0.65;
+  line-height: 1.5;
+}
+.s-problem-emphasis {
+  font-style: italic;
+  opacity: 1 !important;
+  color: var(--gold) !important;
+  margin-top: 8px;
+}
+
+/* ============================================================
+   SECTION: WHAT WE SOLVE  (ivory bg)
+   ============================================================ */
+.s-solve {
+  background: var(--white);
+  padding: 100px var(--px);
+}
+.s-solve-inner { max-width: var(--max-w); margin: 0 auto; }
+.s-solve-header { margin-bottom: 56px; }
+.s-solve-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.s-solve-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.solve-item {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 48px 40px;
+  display: flex;
+  gap: 28px;
+  transition: background 0.3s ease;
+}
+.solve-item:hover { background: var(--pale-sage); }
+.solve-num {
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.22em;
+  color: var(--gold); flex-shrink: 0; padding-top: 4px;
+}
+.solve-name {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+  color: var(--dark); margin-bottom: 10px;
+}
+.solve-q {
+  font-family: var(--font-serif);
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 400; font-style: italic;
+  color: var(--dark); line-height: 1.3;
+  margin-bottom: 14px;
+}
+.solve-desc {
+  font-size: 0.85rem; line-height: 1.75;
+  color: var(--dark2); opacity: 0.68;
+}
+
+/* ============================================================
+   SECTION: OUR APPROACH  (pale sage bg)
+   ============================================================ */
+.s-approach {
+  background: var(--pale-sage);
+  padding: 100px var(--px);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.s-approach-inner { max-width: var(--max-w); margin: 0 auto; }
+.s-approach-header { margin-bottom: 64px; }
+.s-approach-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 300; color: var(--dark);
+  letter-spacing: -0.01em; max-width: 600px;
+}
+.approach-steps {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+.approach-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.step-num {
+  font-family: var(--font-serif);
+  font-size: 4rem; font-weight: 300;
+  color: var(--dark); line-height: 1;
+  letter-spacing: -0.03em;
+  opacity: 0.25;
+}
+.step-name {
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.20em;
+  color: var(--dark); margin-bottom: 8px;
+}
+.step-desc {
+  font-size: 0.85rem; line-height: 1.75;
+  color: var(--dark2); opacity: 0.72;
+  max-width: 200px;
+}
+.step-connector {
+  flex: 0 0 32px;
+  display: flex; align-items: flex-start;
+  padding-top: 28px;
+  justify-content: center;
+}
+.step-connector::after {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--dark2);
+  opacity: 0.25;
+}
+
+/* ============================================================
+   SECTION: THE BEHAVIORAL LENS  (dark charcoal bg)
+   ============================================================ */
+.s-lens {
+  background: var(--dark);
+  padding: 100px var(--px);
+}
+.s-lens-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.s-lens-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+.s-lens-body {
+  font-size: 0.92rem; line-height: 1.78;
+  color: var(--cream); opacity: 0.55;
+}
+.lens-cloud {
+  display: flex; flex-wrap: wrap;
+  gap: 10px 16px;
+  align-items: baseline;
+}
+.lc {
+  font-family: var(--font-serif);
+  color: var(--cream);
+  transition: opacity 0.3s ease;
+  cursor: default;
+}
+.lc-xl { font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300; }
+.lc-lg { font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 300; opacity: 0.75; }
+.lc-md { font-size: clamp(1rem, 1.6vw, 1.4rem); font-weight: 300; opacity: 0.55; }
+.lc-sm { font-size: clamp(0.78rem, 1.1vw, 1rem); font-weight: 300; }
+.lc-dim { opacity: 0.28; }
+.lc-accent { color: var(--sage-lt); }
+.lc:hover { opacity: 1 !important; }
+
+/* ============================================================
+   SECTION: FROM INSIGHT TO INTERVENTION  (forest bg)
+   ============================================================ */
+.s-transform {
+  background: var(--forest);
+  padding: 100px var(--px);
+}
+.s-transform-inner {
+  max-width: var(--max-w); margin: 0 auto;
+}
+.s-transform-header { margin-bottom: 64px; }
+.s-transform-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--cream);
+  letter-spacing: -0.01em; margin-bottom: 14px;
+}
+.s-transform-sub {
+  font-size: 0.95rem; line-height: 1.7;
+  color: var(--cream); opacity: 0.5;
+  max-width: 480px;
+}
+.transform-chain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  margin-bottom: 72px;
+  padding-left: 2px;
+}
+.tc-step {
+  font-size: 0.65rem; font-weight: 600; letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--cream); opacity: 0.45;
+  padding: 10px 16px;
+  border: 1px solid rgba(252,251,246,0.12);
+  border-radius: 2px;
+  transition: opacity 0.3s;
+}
+.tc-outcome {
+  opacity: 0.9;
+  border-color: var(--gold);
+  color: var(--gold);
+}
+.tc-arrow {
+  font-size: 1rem;
+  color: rgba(252,251,246,0.18);
+  line-height: 1;
+  padding: 4px 16px;
+}
+.transform-example {
+  border-top: 1px solid rgba(252,251,246,0.10);
+  padding-top: 48px;
+}
+.te-tag {
+  font-size: 0.58rem; font-weight: 500; letter-spacing: 0.22em;
+  color: rgba(252,251,246,0.30);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  font-style: normal;
+}
+.te-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: rgba(252,251,246,0.08);
+  border: 1px solid rgba(252,251,246,0.08);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.te-col {
+  background: var(--forest);
+  padding: 32px 28px;
+  transition: background 0.3s ease;
+}
+.te-col:hover { background: var(--moss); }
+.te-step {
+  display: block;
+  font-size: 0.58rem; font-weight: 600; letter-spacing: 0.20em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.te-text {
+  font-size: 0.85rem; line-height: 1.72;
+  color: var(--cream); opacity: 0.55;
+}
+
+/* ============================================================
+   SECTION: WHERE WE WORK  (ivory bg)
+   ============================================================ */
+.s-domains {
+  background: var(--white);
+  padding: 100px var(--px);
+  border-top: 1px solid var(--border);
+}
+.s-domains-inner { max-width: var(--max-w); margin: 0 auto; }
+.s-domains-header { margin-bottom: 56px; }
+.s-domains-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300; color: var(--dark);
+  letter-spacing: -0.01em;
+}
+.domains-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-left: 1px solid var(--border);
+}
+.domain-item {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 44px 36px;
+  transition: background 0.3s ease;
+  position: relative;
+}
+.domain-item:hover { background: var(--pale-yellow); }
+.domain-n {
+  display: block;
+  font-size: 0.55rem; font-weight: 600; letter-spacing: 0.22em;
+  color: var(--gold); margin-bottom: 16px;
+}
+.domain-name {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.18em;
+  color: var(--dark); margin-bottom: 12px;
+}
+.domain-desc {
+  font-size: 0.87rem; line-height: 1.72;
+  color: var(--dark2); opacity: 0.65;
+}
+
+/* ============================================================
+   SECTION: WHY THIS APPROACH  (dark charcoal bg)
+   ============================================================ */
+.s-why {
+  background: var(--dark);
+  padding: 100px var(--px);
+}
+.s-why-inner { max-width: var(--max-w); margin: 0 auto; }
+.s-why-header { margin-bottom: 64px; max-width: 640px; }
+.s-why-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  font-weight: 300; color: var(--cream);
+  letter-spacing: -0.01em;
+}
+.s-why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+.why-item { display: flex; flex-direction: column; gap: 16px; }
+.why-rule {
+  width: 32px; height: 2px;
+  background: var(--gold); border-radius: 1px;
+}
+.why-heading {
+  font-family: var(--font-serif);
+  font-size: 1.3rem; font-weight: 400;
+  color: var(--cream);
+}
+.why-body {
+  font-size: 0.87rem; line-height: 1.78;
+  color: var(--cream); opacity: 0.52;
+}
+
+/* ============================================================
+   SECTION: ABOUT  (ivory bg)
+   ============================================================ */
+.s-about {
+  background: var(--white);
+  padding: 100px var(--px);
+  border-top: 1px solid var(--border);
+}
+.s-about-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 80px;
+  align-items: start;
+}
+.s-about-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 300; color: var(--dark);
+  letter-spacing: -0.01em; line-height: 1.1;
+  margin-bottom: 28px;
+}
+.s-about-body {
+  font-size: 0.95rem; line-height: 1.8;
+  color: var(--dark2); opacity: 0.7;
+  margin-bottom: 20px; max-width: 480px;
+}
+.s-about-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--dark);
+  border-bottom: 1.5px solid var(--dark);
+  padding-bottom: 3px; margin-top: 12px;
+  text-decoration: none;
+  transition: color 0.2s, border-color 0.2s;
+}
+.s-about-link:hover { color: var(--gold); border-color: var(--gold); }
+.about-pillars {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.ap-item {
+  padding: 24px 28px;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.ap-label {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.20em;
+  text-transform: uppercase; color: var(--dark);
+}
+.ap-desc {
+  font-size: 0.82rem; line-height: 1.5;
+  color: var(--dark2); opacity: 0.6;
+}
+.ap-divider {
+  height: 1px; background: var(--border);
+}
+
+/* ============================================================
+   SECTION: FINAL CTA  (forest bg)
+   ============================================================ */
+.s-cta {
+  background: var(--forest);
+  padding: 120px var(--px);
+  text-align: center;
+}
+.s-cta-inner {
+  max-width: 680px; margin: 0 auto;
+  display: flex; flex-direction: column; align-items: center;
+}
+.s-cta-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 4rem);
+  font-weight: 300; color: var(--cream);
+  letter-spacing: -0.01em; line-height: 1.12;
+  margin-bottom: 20px;
+}
+.s-cta-body {
+  font-size: 1rem; line-height: 1.7;
+  color: var(--cream); opacity: 0.5;
+  max-width: 420px; margin-bottom: 44px;
+}
+.s-cta-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--gold); color: var(--dark);
+  padding: 18px 36px; border-radius: 100px;
+  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em;
+  text-transform: uppercase; text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.s-cta-btn:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .s-problem-inner { grid-template-columns: 1fr; gap: 48px; }
+  .s-lens-inner { grid-template-columns: 1fr; gap: 48px; }
+  .s-about-inner { grid-template-columns: 1fr; gap: 48px; }
+  .te-grid { grid-template-columns: repeat(2, 1fr); }
+  .domains-grid { grid-template-columns: repeat(2, 1fr); }
+  .approach-steps { flex-direction: column; gap: 32px; }
+  .step-connector { display: none; }
+  .step-desc { max-width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .s-solve-grid { grid-template-columns: 1fr; }
+  .domains-grid { grid-template-columns: 1fr; }
+  .s-why-grid { grid-template-columns: 1fr; gap: 40px; }
+  .te-grid { grid-template-columns: 1fr; }
+  .s-lens-inner { grid-template-columns: 1fr; }
+  .solve-item { padding: 32px 24px; }
+  .domain-item { padding: 32px 24px; }
+}
+
+</style>
 
 </head>
 <body>
@@ -544,7 +1077,7 @@ img, svg { display: block; }
         </li>
 
         <li class="nav-item">
-          <a href="#method" class="nav-link">Our Method</a>
+          <a href="#approach" class="nav-link">Our Method</a>
         </li>
 
         <li class="nav-item">
@@ -607,90 +1140,354 @@ img, svg { display: block; }
   </section>
 
 
-  <!-- ====== OUR METHOD ====== -->
-  <section class="method" id="method">
-    <div class="method-inner">
 
-      <p class="method-label">OUR METHOD</p>
-
-      <div class="method-three-col">
-
-        <!-- Col 1: Title -->
-        <div class="method-col-title">
-          <h2 class="method-title">Neuroscience,<br><em>Applied.</em></h2>
-        </div>
-
-        <!-- Col 2: Description -->
-        <div class="method-col-desc">
-          <p>We translate neuroscience into practical insights that help teams understand how people think, feel, decide, and act — and turn those insights into better products, experiences, and strategies.</p>
-          <a href="#" class="explore-link">EXPLORE OUR APPROACH <span aria-hidden="true">→</span></a>
-        </div>
-
-        <!-- Col 3: Steps -->
-        <div class="method-col-steps">
-          <div class="method-steps-row">
-
-            <div class="method-step">
-              <div class="step-circle step-sage">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                  <circle cx="18" cy="14" r="8" stroke="#1C3A2E" stroke-width="1.4"/>
-                  <path d="M12 14c0-3.3 2.7-6 6-6" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M14 22v4M22 22v4" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
-                  <path d="M10 22h16" stroke="#1C3A2E" stroke-width="1.4" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <span class="step-label">THINK</span>
-              <span class="step-desc">How people process information.</span>
-            </div>
-
-            <div class="step-arrow" aria-hidden="true">→</div>
-
-            <div class="method-step">
-              <div class="step-circle step-yellow">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                  <path d="M18 26s-9-5.5-9-12a6 6 0 0112 0 6 6 0 0112 0c0 6.5-9 12-9 12z" stroke="#1C3A2E" stroke-width="1.4" stroke-linejoin="round"/>
-                  <circle cx="18" cy="17" r="2.5" stroke="#1C3A2E" stroke-width="1.2"/>
-                </svg>
-              </div>
-              <span class="step-label">FEEL</span>
-              <span class="step-desc">How emotion shapes experience.</span>
-            </div>
-
-            <div class="step-arrow" aria-hidden="true">→</div>
-
-            <div class="method-step">
-              <div class="step-circle step-dark">
-                <svg width="36" height="36" viewBox="0 0 36 36" fill="none" aria-hidden="true">
-                  <circle cx="18" cy="18" r="10" stroke="#F5F0E8" stroke-width="1.4"/>
-                  <circle cx="18" cy="18" r="6"  stroke="#F5F0E8" stroke-width="1.2"/>
-                  <circle cx="18" cy="18" r="2"  fill="#F5F0E8"/>
-                </svg>
-              </div>
-              <span class="step-label">ACT</span>
-              <span class="step-desc">What drives decisions and behavior.</span>
-            </div>
-
-          </div>
-        </div>
-
+  <!-- ====== SECTION: THE PROBLEM ====== -->
+  <section class="s-problem" id="problem">
+    <div class="s-problem-inner">
+      <div class="s-problem-left reveal">
+        <p class="eyebrow-light">THE PROBLEM</p>
+        <h2 class="s-problem-statement">People don't always do what businesses expect.</h2>
       </div>
-
-      <p class="method-footer-text">WE TURN THESE INSIGHTS INTO ACTION.</p>
-
+      <div class="s-problem-right">
+        <ul class="s-problem-list">
+          <li class="reveal">Customers abandon products they said they wanted.</li>
+          <li class="reveal">Users stop engaging with experiences they initially loved.</li>
+          <li class="reveal">Employees resist systems designed to make their work easier.</li>
+          <li class="reveal">Patients struggle to follow through with products built to help them.</li>
+        </ul>
+        <div class="s-problem-insight reveal">
+          <p>The problem is rarely just the product.</p>
+          <p class="s-problem-emphasis">It is often the behavior around it.</p>
+        </div>
+      </div>
     </div>
   </section>
 
 
-  <!-- ====== ABOUT (stub) ====== -->
-  <section class="about-stub" id="about">
-    <div class="about-stub-inner">
-      <p class="method-label">ABOUT PIEZA50</p>
-      <h2 class="method-title">Where science<br><em>meets strategy.</em></h2>
-      <p class="hero-body" style="max-width:540px;margin:0 auto;">
-        Pieza50 is a neuroscience consulting firm that bridges human behavior research
-        and real business decisions. We work with teams who want to build with
-        the brain as their guide.
-      </p>
+  <!-- ====== SECTION: WHAT WE SOLVE ====== -->
+  <section class="s-solve" id="solve">
+    <div class="s-solve-inner">
+      <div class="s-solve-header reveal">
+        <p class="eyebrow-gold">WHAT WE SOLVE</p>
+        <h2 class="s-solve-title">The questions at the center of our work.</h2>
+      </div>
+      <div class="s-solve-grid">
+
+        <div class="solve-item reveal">
+          <span class="solve-num">01</span>
+          <div class="solve-content">
+            <h3 class="solve-name">ADOPTION</h3>
+            <p class="solve-q">Why aren't people starting?</p>
+            <p class="solve-desc">First use is harder than it looks. We identify what prevents people from taking the first step — and what makes it more likely.</p>
+          </div>
+        </div>
+
+        <div class="solve-item reveal">
+          <span class="solve-num">02</span>
+          <div class="solve-content">
+            <h3 class="solve-name">ENGAGEMENT</h3>
+            <p class="solve-q">Why aren't they continuing?</p>
+            <p class="solve-desc">Initial interest rarely becomes habit on its own. We find what breaks the cycle — and what builds it.</p>
+          </div>
+        </div>
+
+        <div class="solve-item reveal">
+          <span class="solve-num">03</span>
+          <div class="solve-content">
+            <h3 class="solve-name">CONVERSION</h3>
+            <p class="solve-q">Why aren't they choosing?</p>
+            <p class="solve-desc">People understand the offer but don't act. We diagnose the moment of hesitation and design for what comes next.</p>
+          </div>
+        </div>
+
+        <div class="solve-item reveal">
+          <span class="solve-num">04</span>
+          <div class="solve-content">
+            <h3 class="solve-name">RETENTION</h3>
+            <p class="solve-q">Why aren't they returning?</p>
+            <p class="solve-desc">Value alone doesn't keep people. We examine what reduces the motivation to return — and what restores it.</p>
+          </div>
+        </div>
+
+        <div class="solve-item reveal">
+          <span class="solve-num">05</span>
+          <div class="solve-content">
+            <h3 class="solve-name">DECISIONS</h3>
+            <p class="solve-q">Why are choices diverging from expectations?</p>
+            <p class="solve-desc">Customers and employees often make decisions that seem irrational. We find the underlying logic — and work with it, not against it.</p>
+          </div>
+        </div>
+
+        <div class="solve-item reveal">
+          <span class="solve-num">06</span>
+          <div class="solve-content">
+            <h3 class="solve-name">CHANGE</h3>
+            <p class="solve-q">Why aren't new behaviors taking hold?</p>
+            <p class="solve-desc">Behavioral change is hard by design. We understand why — and build pathways that make the desired behavior easier, clearer, and more sustainable.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: OUR APPROACH ====== -->
+  <section class="s-approach" id="approach">
+    <div class="s-approach-inner">
+      <div class="s-approach-header reveal">
+        <p class="eyebrow-dark">OUR APPROACH</p>
+        <h2 class="s-approach-title">How we find what's really going on — and what to do about it.</h2>
+      </div>
+      <div class="approach-steps">
+
+        <div class="approach-step reveal">
+          <div class="step-num">01</div>
+          <div class="step-body">
+            <h3 class="step-name">UNDERSTAND</h3>
+            <p class="step-desc">We start by mapping what people are actually doing — not what they are expected to do. Observation before assumption.</p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true"></div>
+
+        <div class="approach-step reveal">
+          <div class="step-num">02</div>
+          <div class="step-body">
+            <h3 class="step-name">DIAGNOSE</h3>
+            <p class="step-desc">We identify the behavioral barriers: cognitive load, poor timing, unclear value, social friction, broken habits.</p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true"></div>
+
+        <div class="approach-step reveal">
+          <div class="step-num">03</div>
+          <div class="step-body">
+            <h3 class="step-name">DESIGN</h3>
+            <p class="step-desc">We develop targeted interventions grounded in behavioral evidence — from small friction reductions to full journey redesigns.</p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true"></div>
+
+        <div class="approach-step reveal">
+          <div class="step-num">04</div>
+          <div class="step-body">
+            <h3 class="step-name">EXPERIMENT</h3>
+            <p class="step-desc">We test which intervention actually moves behavior in the real world. Rigorous where it matters, pragmatic where it doesn't.</p>
+          </div>
+        </div>
+
+        <div class="step-connector" aria-hidden="true"></div>
+
+        <div class="approach-step reveal">
+          <div class="step-num">05</div>
+          <div class="step-body">
+            <h3 class="step-name">MEASURE</h3>
+            <p class="step-desc">We track whether behavior changed — and whether the business outcome changed with it. Insight without outcome is incomplete.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: THE BEHAVIORAL LENS ====== -->
+  <section class="s-lens" id="lens">
+    <div class="s-lens-inner">
+      <div class="s-lens-left reveal">
+        <p class="eyebrow-light">THE BEHAVIORAL LENS</p>
+        <h2 class="s-lens-title">Look beneath the behavior.</h2>
+        <p class="s-lens-body">Behavior is visible. The forces shaping it are not. We use behavioral science as a set of lenses — each one revealing a different layer of what's really driving the problem.</p>
+      </div>
+      <div class="s-lens-right" aria-hidden="true">
+        <div class="lens-cloud">
+          <span class="lc lc-lg">Attention</span>
+          <span class="lc lc-sm lc-dim">Context</span>
+          <span class="lc lc-md">Memory</span>
+          <span class="lc lc-sm lc-dim">Timing</span>
+          <span class="lc lc-xl lc-accent">Friction</span>
+          <span class="lc lc-md">Motivation</span>
+          <span class="lc lc-sm lc-dim">Trust</span>
+          <span class="lc lc-lg">Habits</span>
+          <span class="lc lc-sm lc-dim">Reward</span>
+          <span class="lc lc-md">Decision-making</span>
+          <span class="lc lc-sm lc-dim">Emotion</span>
+          <span class="lc lc-lg lc-accent">Social influence</span>
+          <span class="lc lc-md">Cognitive load</span>
+          <span class="lc lc-sm lc-dim">Choice architecture</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: FROM INSIGHT TO INTERVENTION ====== -->
+  <section class="s-transform" id="transform">
+    <div class="s-transform-inner">
+      <div class="s-transform-header reveal">
+        <p class="eyebrow-light">FROM INSIGHT TO INTERVENTION</p>
+        <h2 class="s-transform-title">We don't stop at insight.</h2>
+        <p class="s-transform-sub">Every behavioral finding becomes a testable intervention. Every experiment produces a measurable outcome.</p>
+      </div>
+
+      <div class="transform-chain reveal">
+        <div class="tc-step">BUSINESS PROBLEM</div>
+        <div class="tc-arrow" aria-hidden="true">↓</div>
+        <div class="tc-step">BEHAVIORAL QUESTION</div>
+        <div class="tc-arrow" aria-hidden="true">↓</div>
+        <div class="tc-step">HYPOTHESIS</div>
+        <div class="tc-arrow" aria-hidden="true">↓</div>
+        <div class="tc-step">INTERVENTION</div>
+        <div class="tc-arrow" aria-hidden="true">↓</div>
+        <div class="tc-step">EXPERIMENT</div>
+        <div class="tc-arrow" aria-hidden="true">↓</div>
+        <div class="tc-step tc-outcome">BUSINESS OUTCOME</div>
+      </div>
+
+      <div class="transform-example reveal">
+        <p class="te-tag">— AN ILLUSTRATIVE EXAMPLE —</p>
+        <div class="te-grid">
+          <div class="te-col">
+            <span class="te-step">OBSERVATION</span>
+            <p class="te-text">Users sign up but fail to return after day one. Activation is weak. 30-day retention is worse.</p>
+          </div>
+          <div class="te-col">
+            <span class="te-step">BEHAVIORAL QUESTION</span>
+            <p class="te-text">What prevents the behavior from becoming routine? Is it friction, unclear reward, poor timing, or missing progress feedback?</p>
+          </div>
+          <div class="te-col">
+            <span class="te-step">INTERVENTION</span>
+            <p class="te-text">Reduce cognitive load at first use. Add one clear, immediate win. Introduce well-timed, contextual follow-ups.</p>
+          </div>
+          <div class="te-col">
+            <span class="te-step">MEASURE</span>
+            <p class="te-text">A/B test the redesigned onboarding. Track activation rate and 30-day return behavior as primary outcomes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: WHERE WE WORK ====== -->
+  <section class="s-domains" id="domains">
+    <div class="s-domains-inner">
+      <div class="s-domains-header reveal">
+        <p class="eyebrow-gold">WHERE WE WORK</p>
+        <h2 class="s-domains-title">Wherever behavior is the barrier to growth.</h2>
+      </div>
+      <div class="domains-grid">
+
+        <div class="domain-item reveal">
+          <span class="domain-n">01</span>
+          <h3 class="domain-name">PRODUCT</h3>
+          <p class="domain-desc">Design products around how people actually behave — not how they said they would behave in a survey.</p>
+        </div>
+
+        <div class="domain-item reveal">
+          <span class="domain-n">02</span>
+          <h3 class="domain-name">GROWTH</h3>
+          <p class="domain-desc">Identify behavioral barriers to acquisition, conversion, and retention. Find what's actually stopping people from saying yes.</p>
+        </div>
+
+        <div class="domain-item reveal">
+          <span class="domain-n">03</span>
+          <h3 class="domain-name">EXPERIENCE</h3>
+          <p class="domain-desc">Reduce friction across customer journeys. Make the right action feel like the obvious one.</p>
+        </div>
+
+        <div class="domain-item reveal">
+          <span class="domain-n">04</span>
+          <h3 class="domain-name">HEALTH</h3>
+          <p class="domain-desc">Design experiences that make beneficial behaviors easier to start and significantly harder to abandon.</p>
+        </div>
+
+        <div class="domain-item reveal">
+          <span class="domain-n">05</span>
+          <h3 class="domain-name">CHANGE</h3>
+          <p class="domain-desc">Help organizations understand why people resist new systems — and design pathways that actually work with human nature.</p>
+        </div>
+
+        <div class="domain-item reveal">
+          <span class="domain-n">06</span>
+          <h3 class="domain-name">STRATEGY</h3>
+          <p class="domain-desc">Bring behavioral evidence into important business decisions. Understand the human on the other side of every number.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: WHY THIS APPROACH ====== -->
+  <section class="s-why" id="why">
+    <div class="s-why-inner">
+      <div class="s-why-header reveal">
+        <p class="eyebrow-light">WHY THIS APPROACH</p>
+        <h2 class="s-why-title">Behavioral science is only useful when it changes something.</h2>
+      </div>
+      <div class="s-why-grid">
+        <div class="why-item reveal">
+          <div class="why-rule"></div>
+          <h3 class="why-heading">Start with behavior, not with theory.</h3>
+          <p class="why-body">We don't begin with a framework and fit your problem into it. We start by understanding what people are actually doing — and work from there.</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-rule"></div>
+          <h3 class="why-heading">Evidence informs. Experiments decide.</h3>
+          <p class="why-body">Behavioral science tells us where to look. Rigorous experimentation tells us what actually works. Both are necessary. Neither is sufficient alone.</p>
+        </div>
+        <div class="why-item reveal">
+          <div class="why-rule"></div>
+          <h3 class="why-heading">Insight without outcome is incomplete.</h3>
+          <p class="why-body">We measure what matters: did the behavior change? Did the business outcome change? Not whether the research was interesting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: ABOUT ====== -->
+  <section class="s-about" id="about">
+    <div class="s-about-inner">
+      <div class="s-about-text reveal">
+        <p class="eyebrow-gold">ABOUT</p>
+        <h2 class="s-about-title">Where science<br><em>meets strategy.</em></h2>
+        <p class="s-about-body">Pieza50 was founded at the intersection of neuroscience, business strategy, and behavioral research. The underlying belief: understanding how people actually think, feel, and decide is one of the most useful things you can do for a business — and one of the most underused.</p>
+        <p class="s-about-body">We are not an academic lab. We are not a generic innovation consultancy. We are a focused practice that brings behavioral science to bear on real commercial problems — and measures whether it worked.</p>
+        <a href="#contact" class="s-about-link">Start a conversation <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="s-about-aside reveal">
+        <div class="about-pillars">
+          <div class="ap-item">
+            <span class="ap-label">NEUROSCIENCE</span>
+            <span class="ap-desc">The science of how brains process, decide, and remember</span>
+          </div>
+          <div class="ap-divider"></div>
+          <div class="ap-item">
+            <span class="ap-label">BEHAVIORAL SCIENCE</span>
+            <span class="ap-desc">The patterns that shape what people actually do</span>
+          </div>
+          <div class="ap-divider"></div>
+          <div class="ap-item">
+            <span class="ap-label">BUSINESS STRATEGY</span>
+            <span class="ap-desc">Outcomes that change what the company can do next</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ====== SECTION: FINAL CTA ====== -->
+  <section class="s-cta" id="contact">
+    <div class="s-cta-inner">
+      <h2 class="s-cta-title reveal">What behavior is holding your business back?</h2>
+      <p class="s-cta-body reveal">Let's find out what's happening beneath the surface — and what you can test next.</p>
+      <a href="mailto:hello@pieza50.com" class="s-cta-btn reveal">START A CONVERSATION <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
@@ -787,6 +1584,22 @@ img, svg { display: block; }
     setInterval(nextWord, INTERVAL);
   }
 
+})();
+
+// ── Scroll reveal ─────────────────────────────────────────
+(function () {
+  const revealEls = document.querySelectorAll('.reveal');
+  if (!revealEls.length) return;
+  const io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, i) {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (i * 0.04) + 's';
+        e.target.classList.add('revealed');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(function (el) { io.observe(el); });
 })();
 
 </script>
